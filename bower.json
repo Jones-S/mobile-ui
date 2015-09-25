@@ -1,0 +1,24 @@
+{
+  "name": "Mobile UI",
+  "version": "1.0.0",
+  "homepage": "https://github.com/Jones-S/mobile-ui",
+  "authors": [
+    "Jones <jonas.scheiwiller@zhdk.ch>"
+  ],
+  "description": "Mobile User Interface Module – Interaction Design",
+  "keywords": [
+    "mobile",
+    "user",
+    "interface",
+    "ui",
+    "iad",
+    "interaction",
+    "design",
+    "app",
+    "design"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "jquery": "~2.1.4"
+  }
+}
