@@ -1,0 +1,42 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-color: $clr-primary;
+}
+
+// .small-1 { width: 1 * (100% / 5); }
+// .small-2 { width: 2 * (100% / 5); }
+// .small-3 { width: 3 * (100% / 5); }
+// .small-4 { width: 4 * (100% / 5); }
+// .small-5 { width: 100%; }
+
+// @media only screen and (min-width: $width-tablet) {
+//     .medium-1 { width: 1 * (100% / 5); }
+//     .medium-1_25 { width: 1.25 * (100% / 5); }
+//     .medium-2 { width: 2 * (100% / 5); }
+//     .medium-2_5 { width: 2.5 * (100% / 5); }
+//     .medium-3 { width: 3 * (100% / 5); }
+//     .medium-4 { width: 4 * (100% / 5); }
+//     .medium-5 { width: 5 * (100% / 5); }
+// }
+
+//clearfix for floating elements -> http://css-tricks.com/all-about-floats/
+.clearfix:after {
+    content: " ";
+    visibility: hidden;
+    display: block;
+    height: 0px;
+    clear: both;
+    font-size: 0;
+}
+
+
+// The element at the top of the page right after the fixed navigation bar MUST have sufficient top margin or else it will be covered by the bar
+
+
+header {
+
+}
+

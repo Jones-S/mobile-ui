@@ -1,0 +1,99 @@
+html, body {
+    font-family: $font-family-base;
+    text-transform: none;
+    font-size: $font-size-base;
+    line-height: $baseline-height;
+
+    // ligatures and kerning
+    -webkit-font-kerning:   normal;
+    -moz-font-kerning:      normal;
+    font-kerning:           normal;
+    -webkit-font-feature-settings:      "liga";
+    -moz-font-feature-settings:         "liga", "kern";
+    font-feature-settings:              "liga", "kern";
+
+}
+
+// http://thesassway.com/advanced/modular-css-typography
+// https://drewish.com/tools/vertical-rhythm/
+// define classes which can then be applied to the elements (modularity!)
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: $font-family-base;
+}
+
+.h1 {
+    font-size: 7.0rem;
+    line-height: 6 * $baseline-height;        // lineheight + margin-top + margin-bottom must be a multiple of 24px (baseline grid)
+    margin-top: 1 * $baseline-height;
+    margin-bottom: $baseline-height;
+    font-weight: 700;
+    font-family: $font-family-base;
+    color: black;
+    // @include media("<phone") {
+    //     font-size: 3.0rem;
+    // }
+}
+
+.h2, .h3 {
+    font-size: 2.8rem;
+    line-height: 2 * $baseline-height;
+}
+
+
+// .h4 { font-size: 110%; }
+// .h5 { font-size: 100%; }
+
+// if necessary to mark text
+.quiet { color: $clr-quiet; }
+.loud  { color: $clr-loud; }
+
+.italic { font-style: italic; }
+.bold   { font-weight: 700; }
+.center { text-align: center; }
+
+
+
+i, em { @extend .italic; }
+b, strong { @extend .bold; }
+
+h1, .h1 { @extend .h1; }
+h2, .h2 { @extend .h2; }
+h3, .h3 { @extend .h3; }
+
+
+
+a {
+    color: $clr-link-hover;
+    text-decoration: none;
+    &:hover {
+        color: lighten($clr-link-hover, 15%);
+    }
+}
+
+p {
+    // hyphenation
+    -webkit-hyphens:    auto;
+    -moz-hyphens:       auto;
+    -ms-hyphens:        auto;
+    hyphens:            auto;
+
+    font-family: $font-family-base;
+    font-size: 2.5rem;
+    line-height: 2 * $baseline-height; // 1em = $base-font-size, because html/body font-size = $base-font-size -> 1.3333 = 24px
+    margin-top: $baseline-height;
+    margin-bottom: $baseline-height;
+    // http://webtypography.net/2.1.2 -> 33em for article with – in german 40em!
+    // our site has a smaller paragraph width
+}
+
+span {
+    -webkit-hyphens:    auto;
+    -moz-hyphens:       auto;
+    -ms-hyphens:        auto;
+    hyphens:            auto;
+
+    font-family: $font-family-base;
+    font-size: 2.0rem;
+    line-height: 2 * $baseline-height;
+}
+
