@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Jones-S/mobile-ui",
   "devDependencies": {
+    "browser-sync": "^2.9.6",
     "gulp": "^3.9.0",
     "gulp-compass": "^2.1.0",
     "gulp-concat": "^2.6.0",

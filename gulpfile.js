@@ -4,7 +4,7 @@ var concat = require('gulp-concat');
 // var uglify = require('gulp-uglify');
 var notify = require('gulp-notify');
 var minifyCSS = require('gulp-minify-css');
-// var browsersync = require('browser-sync');
+var browsersync = require('browser-sync');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var plumber = require('gulp-plumber');
@@ -12,10 +12,10 @@ var plumber = require('gulp-plumber');
 
 // Asset paths
 var paths = {
-  sass:     ['magnets-and-coils/scss/*.scss'],
-  css:      'magnets-and-coils/css',
-  js:       'magnets-and-coils/js/*.js',
-  js_dist:  'magnets-and-coils/js/dist/',
+  sass:     ['scss/*.scss'],
+  css:      'css',
+  js:       'js/*.js',
+  js_dist:  'js/dist/',
 };
 
 
@@ -24,6 +24,15 @@ function onError(err) {
     notify({ message: 'Oh Boy. Error.' });
     console.log(err);
 }
+
+// browsersync task
+gulp.task('browsersync', function(cb) {
+   return browsersync({
+       server: {
+           baseDir:'./'
+    } }, cb);
+   console.log("css injected");
+});
 
 
 // task css also starts task 'compass' as well (probably synchronous)
@@ -36,7 +45,8 @@ gulp.task('sass', function() {
         .pipe(sass())
         .pipe(sourcemaps.write('maps'))
         .pipe(gulp.dest(paths["css"]))
-        .pipe(notify({ message: 'Sass complete' }));
+        .pipe(notify({ message: 'Sass complete' }))
+        .pipe(browsersync.stream());
 });
 
 
@@ -55,7 +65,8 @@ gulp.task('concatenate', function() {
         .pipe(concat('all.js'))
         .pipe(sourcemaps.write('maps'))
         .pipe(gulp.dest(paths['js_dist']))
-        .pipe(notify({ message: 'Concatenate task complete' }));
+        .pipe(notify({ message: 'Concatenate task complete' }))
+        .pipe(browserSync.stream());
 });
 
 
@@ -68,11 +79,13 @@ gulp.task('watch', function() {
 
     // Watch .js files
     gulp.watch(paths['js'], ['concatenate']);
+
+    gulp.watch("*.html").on('change', browsersync.reload);
 });
 
 
 // Default Task
-gulp.task('default', ['sass', 'watch']);
+gulp.task('default', ['sass', 'watch', 'browsersync']);
 
 
 
