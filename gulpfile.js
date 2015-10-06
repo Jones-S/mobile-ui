@@ -12,10 +12,12 @@ var plumber = require('gulp-plumber');
 
 // Asset paths
 var paths = {
-  sass:     ['scss/*.scss'],
-  css:      'css',
-  js:       'js/*.js',
-  js_dist:  'js/dist/',
+  sass:                     ['scss/*.scss'],
+  css:                      'css',
+  js:                       'js/*.js',
+  angularControllers:       'js/controllers/*.js',
+  angularDirectives:        'js/directives/*.js',
+  js_dist:                  'js/dist/',
 };
 
 
@@ -55,8 +57,11 @@ gulp.task('sass', function() {
 gulp.task('concatenate', function() {
     return gulp.src([
                 'bower_components/jquery/dist/jquery.min.js',
+                'bower_components/angular/angular.min.js',
                 // 'node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min.js',
                 paths['js'],
+                paths['angularControllers'],
+                paths['angularDirectives'],
             ])
         .pipe(plumber({
                 errorHandler: onError
@@ -66,7 +71,7 @@ gulp.task('concatenate', function() {
         .pipe(sourcemaps.write('maps'))
         .pipe(gulp.dest(paths['js_dist']))
         .pipe(notify({ message: 'Concatenate task complete' }))
-        .pipe(browserSync.stream());
+        .pipe(browsersync.stream());
 });
 
 
@@ -78,7 +83,12 @@ gulp.task('watch', function() {
     gulp.watch(paths['sass'], ['sass']);
 
     // Watch .js files
-    gulp.watch(paths['js'], ['concatenate']);
+    // and also watch angular js files
+    gulp.watch([
+            paths['js'],
+            paths['angularControllers'],
+            paths['angularDirectives'],
+        ], ['concatenate']);
 
     gulp.watch("*.html").on('change', browsersync.reload);
 });

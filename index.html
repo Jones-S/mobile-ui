@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="" ng-app="physioApp">
 <head>
   <meta charset="utf-8">
     <title></title>
@@ -11,13 +11,11 @@
     <!-- open graph image! -->
     <meta property="og:image" content="http://www.jonasscheiwiller.ch/img/jpg/thumbnail_website.jpg">
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <script type="text/javascript" src="js/all.js"></script>
+    <script type="text/javascript" src="js/dist/all.js"></script>
 </head>
-<body>
-    <header>
-        <h1>Hello Designathon</h1>
-    </header>
-    <div class="container">
-    </div>
+<body ng-controller="exerciseController">
+    <div><h1 class="title">{{title}}</h1></div>
 </body>
 </html>
+
+

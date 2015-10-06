@@ -97,6 +97,9 @@ body {
   clear: both;
   font-size: 0; }
 
+.title {
+  color: red; }
+
 .marg-top-19 {
   margin-top: 19rem; }
 
