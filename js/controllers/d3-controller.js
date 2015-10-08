@@ -11,6 +11,7 @@ app.controller('d3Controller', ['$scope', function($scope) {
 
         $scope.scrollY = event.deltaY + currentScrollPos;
         checkPos();
+        console.log("mapRange(10): " + mapRange(0.5, 0, 1, 0, 100));
     }
 
     $scope.stopPan = function (event) {
@@ -48,6 +49,11 @@ app.controller('d3Controller', ['$scope', function($scope) {
                 return false;
             }
         });
+    }
+
+    //mapping function
+    function mapRange(value, low1, high1, low2, high2) {
+        return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
     }
 
 
