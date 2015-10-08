@@ -51,4 +51,10 @@ https://www.pubnub.com/blog/build-a-mobile-ios-chat-app-with-angularjs-and-phone
 
 http://www.ng-newsletter.com/posts/beginner2expert-scopes.html
 
+http://www.panopticdev.com/blog2014/phonegap-mac-osx-setup-configuration-android-ios/
+
+#### Spinning Wheel Selector
+
+http://codepen.io/shaoner/pen/zvvQKr
+http://forum.ionicframework.com/t/element-selector-spinning-wheel/5500/5
 

@@ -64,6 +64,7 @@ gulp.task('concatenate', function() {
                 'bower_components/angular-route/angular-route.js',
                 'bower_components/hammerjs/hammer.js',
                 'bower_components/AngularHammer/angular.hammer.js',
+                'bower_components/d3/d3.min.js',
                 // 'node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min.js',
                 paths['js'],
                 paths['angularControllers'],

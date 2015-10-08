@@ -1,1 +1,8 @@
-<h1>start</h1>
+<div class="exercise__input test-input" ng-controller="d3Controller">
+    <div class="input__wrap test-wrap" hm-panmove="panInput" hm-panend="stopPan" hm-tap="d3Transform">
+        <div class="input__scroll-container" style="top: {{scrollY}}px;">
+            <span class="input__number input__inactive" ng-repeat="i in getOptions() track by $index">{{$index+1}}</span>
+        </div>
+
+    </div>
+</div>
