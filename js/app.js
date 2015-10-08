@@ -1,4 +1,4 @@
-var app = angular.module('physioApp', ['ngTouch', 'ngRoute']);
+var app = angular.module('physioApp', ['ngTouch', 'ngRoute', 'hmTouchEvents']);
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider

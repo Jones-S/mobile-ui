@@ -167,7 +167,8 @@ body {
 .exercise__info {
   background-color: #F5BD53;
   padding-top: 1.0rem;
-  padding-bottom: 1.6rem; }
+  padding-bottom: 3.6rem;
+  position: relative; }
 
 .exercise__img {
   margin: 0 auto;
