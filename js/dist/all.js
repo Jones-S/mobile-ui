@@ -4954,16 +4954,16 @@ app.controller('d3Controller', ['$scope', function($scope) {
         var middle = $('.input__wrap').height() / 2 + $('.input__wrap')[0].getBoundingClientRect().top;
         console.log(middle);
 
-        d3.selectAll(".input__number").style('color', function(d) {
+        d3.selectAll(".input__number").classed('input__active', function(d) {
             // console.log($(this).html() + '<html und data>' + $(this)[0].getBoundingClientRect().top);
             // console.log( $(this)[0].getBoundingClientRect());
             var position = $(this)[0].getBoundingClientRect().top
             var range = position + $(this).height();
             console.log("range: " + range + " VON: " + $(this).html());
             if( range >= middle && !(position > middle)){
-                return 'red';
+                return true;
             } else {
-                return 'black';
+                return false;
             }
         });
     }

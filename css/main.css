@@ -96,12 +96,14 @@ span {
   text-align: center;
   padding-bottom: 0.1rem; }
 
+.input__inactive {
+  font-size: 2.7rem;
+  transition: font-size 1.3s; }
+
 .input__active {
   font-size: 5.0rem;
-  padding: 0.8rem 0; }
-
-.input__inactive {
-  font-size: 2.7rem; }
+  padding: 0.8rem 0;
+  transition: font-size 1.3s; }
 
 table {
   border-collapse: separate;

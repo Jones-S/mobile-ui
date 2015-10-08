@@ -119,14 +119,16 @@ span {
     padding-bottom: 0.1rem;
 }
 
+.input__inactive {
+    font-size: 2.7rem;
+    // font-size: 10vw;
+    transition: font-size 1.3s;
+}
+
 .input__active {
     font-size: 5.0rem;
     // font-size: 15vw;
     padding: 0.8rem 0;
-}
-
-.input__inactive {
-    font-size: 2.7rem;
-    // font-size: 10vw;
+    transition: font-size 1.3s;
 }
 
