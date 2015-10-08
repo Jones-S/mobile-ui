@@ -22,7 +22,7 @@ html, body {
 }
 
 .h1 {
-    font-size: 7.0rem;
+    font-size: 2.0rem;
     line-height: 6 * $baseline-height;        // lineheight + margin-top + margin-bottom must be a multiple of 24px (baseline grid)
     margin-top: 1 * $baseline-height;
     margin-bottom: $baseline-height;
@@ -95,5 +95,38 @@ span {
     font-family: $font-family-base;
     font-size: 2.0rem;
     line-height: 2 * $baseline-height;
+}
+
+
+.exercise__title { //h1
+    text-align: center;
+    font-weight: 400; // regular
+    line-height: 1em;
+}
+
+.exercise__number {
+    text-align: center;
+    font-size: 1.3rem;
+    padding-top: 0.5rem;
+}
+
+.input__number {
+    font-weight: 700;
+    font-size: 2.7rem;
+    // font-size: 6vw;
+    display: block;
+    text-align: center;
+    padding-bottom: 0.1rem;
+}
+
+.input__active {
+    font-size: 5.0rem;
+    // font-size: 15vw;
+    padding: 0.8rem 0;
+}
+
+.input__inactive {
+    font-size: 2.7rem;
+    // font-size: 10vw;
 }
 

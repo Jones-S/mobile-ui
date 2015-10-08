@@ -1,0 +1,19 @@
+<div class="exercise" ng-controller="exerciseController" ng-swipe-left="next()" ng-swipe-right="prev()">
+    <div class="exercise__info">
+        <div class="exercise__number">{{exercises.number}}/{{totalExercises}}</div>
+        <h1 class="exercise__title">{{currentExercise().title}}</h1>
+        <img class="exercise__img" src="img/frontlift.svg" alt="">
+        <div class="exercise__tick"></div>
+    </div>
+    <div class="exercise__input">
+        <div class="input__wrap">
+            <span class="input__number input__inactive">12</span>
+            <span class="input__number input__inactive">13</span>
+            <div class="input__divider"></div>
+            <span class="input__number input__active">14</span>
+            <div class="input__divider divider-bottom"></div>
+            <span class="input__number input__inactive">15</span>
+            <span class="input__number input__inactive">16</span>
+        </div>
+    </div>
+</div>

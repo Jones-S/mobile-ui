@@ -21,8 +21,13 @@ $clr-quiet:             #969696;
 $clr-loud:              #969696;
 $clr-link-hover:        #FF3D3D;
 
+$clr-1:                 #F5BD53;
+$clr-2:                 #B8B8B8;
 
-$font-family-base:          'Helvetica', Verdana, sans-serif;
+
+$font-family-base:          "interface",sans-serif;
+
+
 // $font-family-base-reg:      "gt_pressura_trial_regularRg", 'Verdana', Verdana, sans-serif;
 // $font-family-base-light:    "gt_pressura_triallight", 'Verdana', Verdana, sans-serif;
 
@@ -47,6 +52,7 @@ $baseline-height: 1.8rem;
 @import "tables";
 @import "general";
 @import "distances";
+@import "exercise";
 
 // @import "basehold";
 

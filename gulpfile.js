@@ -17,6 +17,8 @@ var paths = {
   js:                       'js/*.js',
   angularControllers:       'js/controllers/*.js',
   angularDirectives:        'js/directives/*.js',
+  angularDirectivesTemp:    'js/directives/*.html',
+  angularViews:             'views/*.html',
   js_dist:                  'js/dist/',
 };
 
@@ -58,6 +60,8 @@ gulp.task('concatenate', function() {
     return gulp.src([
                 'bower_components/jquery/dist/jquery.min.js',
                 'bower_components/angular/angular.min.js',
+                'bower_components/angular-touch/angular-touch.js',
+                'bower_components/angular-route/angular-route.js',
                 // 'node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min.js',
                 paths['js'],
                 paths['angularControllers'],
@@ -88,6 +92,8 @@ gulp.task('watch', function() {
             paths['js'],
             paths['angularControllers'],
             paths['angularDirectives'],
+            paths['angularDirectivesTemp'],
+            paths['angularViews'],
         ], ['concatenate']);
 
     gulp.watch("*.html").on('change', browsersync.reload);

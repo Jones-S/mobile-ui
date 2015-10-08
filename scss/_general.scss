@@ -4,6 +4,7 @@ html {
 
 body {
     background-color: $clr-primary;
+    height: 100%;
 }
 
 // .small-1 { width: 1 * (100% / 5); }
@@ -36,7 +37,5 @@ body {
 // The element at the top of the page right after the fixed navigation bar MUST have sufficient top margin or else it will be covered by the bar
 
 
-.title {
-    color: red;
-}
+
 

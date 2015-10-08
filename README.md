@@ -17,3 +17,38 @@ ZHdK Mobile UI Interaction Design 5th Semester
 
 `$ sudo chown -R user:staff /usr/local`
 -> user = `$ whoami
+
+
+## Code
+
+### Naming
+
+prefix `pa` in Angular directives stands for «Physio App» and is used instead of the ng prefix.
+
+
+### Questions
+
+- Übergänge URL zur nächsten via Swipe
+- Transition via swipe? Syntax?
+- Speichern von Häkchen?
+    angular-gestures
+- Anzeigen von exercise[x] und x = id: (#route)
+- Einschieben von Nummern bei Swipe (Drehrad) (Elemente unsichtbar darunter?)
+- jQuery delegate always necessary
+- jQuery wie krieg ich height ohne delegate
+- generell angular document.ready? mit directives etc.
+```
+function MyCtrl($scope) {
+    angular.element(document).ready(function () {
+        console.log('Hello World');
+    });
+}```
+
+
+### Links
+
+https://www.pubnub.com/blog/build-a-mobile-ios-chat-app-with-angularjs-and-phonegap/
+
+http://www.ng-newsletter.com/posts/beginner2expert-scopes.html
+
+

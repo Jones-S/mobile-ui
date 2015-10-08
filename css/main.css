@@ -11,7 +11,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: baseline; }
 
 html, body {
-  font-family: "Helvetica", Verdana, sans-serif;
+  font-family: "interface", sans-serif;
   text-transform: none;
   font-size: 62.5%;
   line-height: 1.8rem;
@@ -23,15 +23,15 @@ html, body {
   font-feature-settings: "liga", "kern"; }
 
 h1, .h1, h2, .h2, h3, .h3, .h4, .h5, .h6 {
-  font-family: "Helvetica", Verdana, sans-serif; }
+  font-family: "interface", sans-serif; }
 
 h1, .h1 {
-  font-size: 7.0rem;
+  font-size: 2.0rem;
   line-height: 10.8rem;
   margin-top: 1.8rem;
   margin-bottom: 1.8rem;
   font-weight: 700;
-  font-family: "Helvetica", Verdana, sans-serif;
+  font-family: "interface", sans-serif;
   color: black; }
 
 h2, .h2, h3, .h3 {
@@ -64,7 +64,7 @@ p {
   -moz-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
-  font-family: "Helvetica", Verdana, sans-serif;
+  font-family: "interface", sans-serif;
   font-size: 2.5rem;
   line-height: 3.6rem;
   margin-top: 1.8rem;
@@ -75,9 +75,33 @@ span {
   -moz-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
-  font-family: "Helvetica", Verdana, sans-serif;
+  font-family: "interface", sans-serif;
   font-size: 2.0rem;
   line-height: 3.6rem; }
+
+.exercise__title {
+  text-align: center;
+  font-weight: 400;
+  line-height: 1em; }
+
+.exercise__number {
+  text-align: center;
+  font-size: 1.3rem;
+  padding-top: 0.5rem; }
+
+.input__number {
+  font-weight: 700;
+  font-size: 2.7rem;
+  display: block;
+  text-align: center;
+  padding-bottom: 0.1rem; }
+
+.input__active {
+  font-size: 5.0rem;
+  padding: 0.8rem 0; }
+
+.input__inactive {
+  font-size: 2.7rem; }
 
 table {
   border-collapse: separate;
@@ -87,7 +111,8 @@ html {
   height: 100%; }
 
 body {
-  background-color: #F7F7F7; }
+  background-color: #F7F7F7;
+  height: 100%; }
 
 .clearfix:after {
   content: " ";
@@ -96,9 +121,6 @@ body {
   height: 0px;
   clear: both;
   font-size: 0; }
-
-.title {
-  color: red; }
 
 .marg-top-19 {
   margin-top: 19rem; }
@@ -132,5 +154,38 @@ body {
 
 .dist-to-next-quad {
   margin-bottom: 7.2rem; }
+
+.view-container {
+  height: 100%; }
+
+.exercise {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%; }
+
+.exercise__info {
+  background-color: #F5BD53;
+  padding-top: 1.0rem;
+  padding-bottom: 1.6rem; }
+
+.exercise__img {
+  margin: 0 auto;
+  display: block; }
+
+.exercise__input {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
+
+.input__divider {
+  height: 0.1rem;
+  width: 12.7rem;
+  background-color: #B8B8B8;
+  margin: 0 auto; }
+
+.divider-bottom {
+  margin-bottom: 0.4rem; }
 
 /*# sourceMappingURL=maps/main.css.map */

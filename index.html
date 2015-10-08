@@ -8,13 +8,17 @@
       <meta name="keywords" content="" />
     <meta name="robots" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Typekit -->
+    <script src="https://use.typekit.net/hlg0daw.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <!-- open graph image! -->
     <meta property="og:image" content="http://www.jonasscheiwiller.ch/img/jpg/thumbnail_website.jpg">
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <script type="text/javascript" src="js/dist/all.js"></script>
+
 </head>
-<body ng-controller="exerciseController">
-    <div><h1 class="title">{{title}}</h1></div>
+<body>
+     <div class="view-container" ng-view></div>
 </body>
 </html>
 
