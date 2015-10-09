@@ -24,8 +24,9 @@ app.controller('d3Controller', ['$scope', function($scope) {
 
         // check for transition ending
         $('.scroll-container--anim').on('transitionend webkitTransitionEnd oTransitionEnd mozTransitionEnd msTransitionEnd', function () {
-            $('.input__scroll-container').removeClass("scroll-container--anim");
-        });
+                $('.input__scroll-container').removeClass("scroll-container--anim");
+            }
+        );
 
         checkPos(true);
 
