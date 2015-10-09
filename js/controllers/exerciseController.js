@@ -1,7 +1,7 @@
 app.controller('exerciseController', ['$scope', '$route', '$location', function($scope, $route, $location) {
     $scope.infoDeltaY = 0;
     $scope.infoDeltaY = 0;
-    $scope.infoTransition = 0.1; // define duration in seconds
+    $scope.infoTransition = 0; // define duration in seconds
     $scope.exercises = [
         {
             id: 1,
@@ -46,14 +46,17 @@ app.controller('exerciseController', ['$scope', '$route', '$location', function(
     }
 
     $scope.panInfoUp = function (event) {
-        console.log(event.deltaY);
+        // console.log(event.deltaY);
+        // set transition to 0 to have instantaneous reaction
+        $scope.infoTransition = 0; // in seconds
         if(event.deltaY < 0){
             $scope.infoDeltaY = event.deltaY;
         }
     }
 
     $scope.stopPanInfo = function (event) {
-        if($scope.infoDeltaY < -195 ){
+        // if over threshold -> move up totally
+        if($scope.infoDeltaY < -180 ){
             $scope.infoDeltaY = -250;
             // exerciseDone();
         } else {
