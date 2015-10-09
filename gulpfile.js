@@ -58,14 +58,14 @@ gulp.task('sass', function() {
 // concat gulp task
 gulp.task('concatenate', function() {
     return gulp.src([
-                'bower_components/jquery/dist/jquery.min.js',
-                'bower_components/angular/angular.min.js',
-                'bower_components/angular-touch/angular-touch.js',
-                'bower_components/angular-route/angular-route.js',
-                'bower_components/angular-animate/angular-animate.min.js',
-                'bower_components/hammerjs/hammer.js',
-                'bower_components/AngularHammer/angular.hammer.js',
-                'bower_components/d3/d3.min.js',
+                // 'bower_components/jquery/dist/jquery.min.js',
+                // 'bower_components/angular/angular.min.js',
+                // 'bower_components/angular-touch/angular-touch.js',
+                // 'bower_components/angular-route/angular-route.js',
+                // 'bower_components/angular-animate/angular-animate.min.js',
+                // 'bower_components/hammerjs/hammer.js',
+                // 'bower_components/AngularHammer/angular.hammer.js',
+                // 'bower_components/d3/d3.min.js',
                 // 'node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min.js',
                 paths['js'],
                 paths['angularControllers'],
@@ -79,6 +79,29 @@ gulp.task('concatenate', function() {
         .pipe(sourcemaps.write('maps'))
         .pipe(gulp.dest(paths['js_dist']))
         .pipe(notify({ message: 'Concatenate task complete' }))
+        .pipe(browsersync.stream());
+});
+
+// concat gulp task
+gulp.task('concatthirdparty', function() {
+    return gulp.src([
+                'bower_components/jquery/dist/jquery.min.js',
+                'bower_components/angular/angular.min.js',
+                'bower_components/angular-touch/angular-touch.js',
+                'bower_components/angular-route/angular-route.js',
+                'bower_components/angular-animate/angular-animate.min.js',
+                'bower_components/hammerjs/hammer.js',
+                'bower_components/AngularHammer/angular.hammer.js',
+                'bower_components/d3/d3.min.js',
+            ])
+        .pipe(plumber({
+                errorHandler: onError
+            }))
+        .pipe(sourcemaps.init())
+        .pipe(concat('third_party.js'))
+        .pipe(sourcemaps.write('maps'))
+        .pipe(gulp.dest(paths['js_dist']))
+        .pipe(notify({ message: 'Concat 3rdParty task complete' }))
         .pipe(browsersync.stream());
 });
 
