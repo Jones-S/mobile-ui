@@ -68,6 +68,12 @@
 
 .input__scroll-container {
     position: relative;
+    transition: top 0s ease-out;
+}
+
+.scroll-container--anim {
+    // transition duration after stop pan
+    transition-duration: 1s;
 }
 
 .test-border {

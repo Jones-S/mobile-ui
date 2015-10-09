@@ -16,8 +16,10 @@ app.controller('d3Controller', ['$scope', function($scope) {
     $scope.stopPan = function (event) {
         // save scroll Position to current
         currentScrollPos = $scope.scrollY;
-        var nearestPoint = roundTo(currentScrollPos, 50);
-        console.log(nearestPoint);
+        var nearestPoint = roundTo(currentScrollPos, 300);
+        console.log("STOP", nearestPoint);
+        // increase css transition duration to animate
+        $('.input__scroll-container').addClass("scroll-container--anim");
         $scope.scrollY = nearestPoint;
         checkPos();
 
@@ -40,12 +42,12 @@ app.controller('d3Controller', ['$scope', function($scope) {
         // center + position of wrap from top
         var middle = $('.input__wrap').height() / 2 + $('.input__wrap')[0].getBoundingClientRect().top;
         var selectionRange = {
-            min: middle - $('.input__inactive').height()/2,
-            max: middle + $('.input__inactive').height()/2
+            min: middle - $('.input__inactive').first().height()/2,
+            max: middle + $('.input__inactive').first().height()/2
         }
         var transitionRange = {
-            min: selectionRange.min - $('.input__inactive').height(),
-            max: selectionRange.max + $('.input__inactive').height()/2
+            min: selectionRange.min - $('.input__inactive').first().height(),
+            max: selectionRange.max + $('.input__inactive').first().height()/2
         }
 
         // console.log("selectionRange: " + selectionRange.max);
@@ -53,27 +55,31 @@ app.controller('d3Controller', ['$scope', function($scope) {
         // console.log("middle: " + middle);
         // console.log("middle: " + middle);
 
-        d3.selectAll(".input__number").style( '-webkit-transform', function(d) {
-            var returnValue;
+        d3.selectAll(".input__number").each( function(d) {
+            var scaleValue, opacityValue;
             var position = $(this)[0].getBoundingClientRect().top
             var range = position + $(this).height();
             $(this).attr('data-pos', position);
 
             if( selectionRange.min < position && position < middle){
-                returnValue = "scale(1) translateZ(0)";
+                scaleValue = "scale(1) translateZ(0)";
+                opacityValue = 1;
                 logValue = "CASE: 0 – MIDDLE";
             } else if ( transitionRange.min <= position && position <= selectionRange.min ) {
                 // return a mapped value
-                var value = mapRange( position, transitionRange.min, selectionRange.max, 0.5, 1 );
-                returnValue = ("scale(" + value + ") translateZ(0)" );
+                var mappedScale = mapRange( position, transitionRange.min, selectionRange.min, 0.5, 1 );
+                opacityValue = mapRange( position, transitionRange.min, selectionRange.min, 0.2, 1 );
+                scaleValue = ("scale(" + mappedScale + ") translateZ(0)" );
                 logValue = "CASE: 1 – TRANS LOW";
             } else if ( middle <= position && position <= transitionRange.max ) {
                 // return a mapped value
-                var value = mapRange( position, middle, transitionRange.max, 1, 0.5 );
-                returnValue = ("scale(" + value + ") translateZ(0)" );
+                var mappedScale = mapRange( position, middle, transitionRange.max, 1, 0.5 );
+                opacityValue = mapRange( position, middle, transitionRange.max, 1, 0.2 );
+                scaleValue = ("scale(" + mappedScale + ") translateZ(0)" );
                 logValue = "CASE: 2 – TRANS HIGH";
             } else {
-                returnValue = "scale(0.5) translateZ(0)";
+                scaleValue = "scale(0.5) translateZ(0)";
+                opacityValue = 0.2;
                 logValue = "CASE: 3 – ELSE";
             }
 
@@ -85,9 +91,11 @@ app.controller('d3Controller', ['$scope', function($scope) {
 
             // JOEL
             // returnValue = {
-            //     "background-color": "red"
+            //     "background-color": "red",
+            //     color:          "white"
             // }
-            return returnValue;
+            d3.select(this).style('-webkit-transform', scaleValue);
+            d3.select(this).style('opacity', opacityValue);
         });
     }
 

@@ -100,8 +100,7 @@ span {
   font-size: 5.4rem;
   line-height: 4.0rem;
   -webkit-transform: scale(0.5);
-  transform: scale(0.5);
-  border-top: 1px solid #FFCCCC; }
+  transform: scale(0.5); }
 
 .input__active {
   padding: 0.8rem 0; }
@@ -211,7 +210,11 @@ body {
   overflow-y: hidden; }
 
 .input__scroll-container {
-  position: relative; }
+  position: relative;
+  transition: top 0s ease-out; }
+
+.scroll-container--anim {
+  transition-duration: 1s; }
 
 .test-border {
   position: absolute;
