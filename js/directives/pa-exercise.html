@@ -1,6 +1,6 @@
 <div class="exercise" ng-controller="exerciseController" ng-swipe-left="next()" ng-swipe-right="prev()" hm-panmove="panInfoUp" hm-panend="stopPanInfo" >
     <div class="exercise__info" style="top:{{infoDeltaY}}px; transition: top {{infoTransition}}s;">
-        <div class="exercise__number">{{exercises.number}}/{{totalExercises}}</div>
+        <div class="exercise__number">{{exercises.id}}/{{totalExercises}}</div>
         <h1 class="exercise__title">{{currentExercise().title}}</h1>
         <img class="exercise__img" src="img/frontlift.svg" alt="">
         <div class="exercise__tick"></div>

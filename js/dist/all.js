@@ -4934,6 +4934,7 @@ app.controller('d3Controller', ['$scope', function($scope) {
     $scope.stopPan = function (event) {
         // save scroll Position to current
         currentScrollPos = $scope.scrollY;
+        console.log(currentScrollPos);
     }
 
 
@@ -4952,20 +4953,58 @@ app.controller('d3Controller', ['$scope', function($scope) {
         // center of wrap to determine, which span should transform
         // center + position of wrap from top
         var middle = $('.input__wrap').height() / 2 + $('.input__wrap')[0].getBoundingClientRect().top;
-        console.log(middle);
+        var selectionRange = {
+            min: middle - $('.input__inactive').height()/2,
+            max: middle + $('.input__inactive').height()/2
+        }
+        var transitionRange = {
+            min: selectionRange.min - $('.input__inactive').height(),
+            max: selectionRange.max + $('.input__inactive').height()
+        }
 
-        d3.selectAll(".input__number").classed('input__active', function(d) {
-            // console.log($(this).html() + '<html und data>' + $(this)[0].getBoundingClientRect().top);
-            // console.log( $(this)[0].getBoundingClientRect());
+        // console.log("selectionRange: " + selectionRange.max);
+        // console.log("transitionRange: " + transitionRange.max);
+        // console.log("middle: " + middle);
+        // console.log("middle: " + middle);
+
+        d3.selectAll(".input__number").style('-webkit-transform', function(d) {
+            var returnValue;
             var position = $(this)[0].getBoundingClientRect().top
             var range = position + $(this).height();
-            console.log("range: " + range + " VON: " + $(this).html());
-            if( range >= middle && !(position > middle)){
-                return true;
+            $(this).attr('data-pos', position);
+
+            // console.log("range: " + range + " VON: " + $(this).html());
+            if( selectionRange.min < position && position < selectionRange.max){
+                returnValue = "scale(1) translateZ(0)";
+                logValue = "CASE: 0 – MIDDLE";
+            } else if ( transitionRange.min <= position && position <= selectionRange.min ) {
+                // return a mapped value
+                var value = mapRange( position, transitionRange.min, selectionRange.max, 0.5, 1 );
+                returnValue = ("scale(" + value + ") translateZ(0)" );
+                logValue = "CASE: 1 – TRANS LOW";
+            } else if ( selectionRange.max <= position && position <= transitionRange.max ) {
+                // return a mapped value
+                var value = mapRange( position, selectionRange.max, transitionRange.max, 1, 0.5 );
+                returnValue = ("scale(" + value + ") translateZ(0)" );
+                logValue = "CASE: 2 – TRANS HIGH";
             } else {
-                return false;
+                returnValue = "scale(0.5) translateZ(0)";
+                logValue = "CASE: 3 – ELSE";
             }
+
+            if ($(this).html() == '5'){
+                // console.log("position: " + position);
+                // console.log("returnValue: " + returnValue);
+                // console.log("logValue: " + logValue);
+            };
+
+            return returnValue;
         });
+    }
+
+    //mapping function
+    function mapRange(value, low1, high1, low2, high2) {
+        return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
     }
 
 
@@ -4977,27 +5016,27 @@ app.controller('exerciseController', ['$scope', '$route', '$location', function(
     $scope.infoTransition = 0.1; // define duration in seconds
     $scope.exercises = [
         {
-            number: "1",
+            id: 1,
             title: "Push Ups",
             type: "repetition",
         },
         {
-            number: "2",
+            id: 2,
             title: "Pull Ups",
             type: "repetition",
         },
         {
-            number: "3",
+            id: 3,
             title: "Bench Press",
             type: "weight",
         },
         {
-            number: "4",
+            id: 4,
             title: "Side Hip Raises",
             type: "repetition",
         },
         {
-            number: "5",
+            id: 5,
             title: "Plank",
             type: "time",
         },

@@ -48,11 +48,31 @@
 }
 
 .test-wrap {
-    height: 40%;
+    height: 60%;
     overflow-y: hidden;
 }
 
 .input__scroll-container {
     position: relative;
+}
+
+.test-border {
+    position: absolute;
+    border: 1px solid $clr-2;
+    z-index: 50;
+    top: 215px;
+    height: 5.0rem;
+    width: 100%;
+    pointer-events: none
+}
+
+.test-border-range {
+    position: absolute;
+    border: 1px solid #00FB5C;
+    z-index: 50;
+    top: 165px;
+    height: 5.0rem * 3;
+    width: 100%;
+    pointer-events: none
 }
 

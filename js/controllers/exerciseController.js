@@ -4,27 +4,27 @@ app.controller('exerciseController', ['$scope', '$route', '$location', function(
     $scope.infoTransition = 0.1; // define duration in seconds
     $scope.exercises = [
         {
-            number: "1",
+            id: 1,
             title: "Push Ups",
             type: "repetition",
         },
         {
-            number: "2",
+            id: 2,
             title: "Pull Ups",
             type: "repetition",
         },
         {
-            number: "3",
+            id: 3,
             title: "Bench Press",
             type: "weight",
         },
         {
-            number: "4",
+            id: 4,
             title: "Side Hip Raises",
             type: "repetition",
         },
         {
-            number: "5",
+            id: 5,
             title: "Plank",
             type: "time",
         },

@@ -91,19 +91,20 @@ span {
 
 .input__number {
   font-weight: 700;
-  font-size: 2.7rem;
+  font-size: 5.4rem;
   display: block;
   text-align: center;
-  padding-bottom: 0.1rem; }
+  height: 5.0rem; }
 
 .input__inactive {
-  font-size: 2.7rem;
-  transition: font-size 1.3s; }
+  font-size: 5.4rem;
+  line-height: 5.0rem;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  border-top: 1px solid #FFCCCC; }
 
 .input__active {
-  font-size: 5.0rem;
-  padding: 0.8rem 0;
-  transition: font-size 1.3s; }
+  padding: 0.8rem 0; }
 
 table {
   border-collapse: separate;
@@ -195,10 +196,28 @@ body {
   height: 100%; }
 
 .test-wrap {
-  height: 40%;
+  height: 60%;
   overflow-y: hidden; }
 
 .input__scroll-container {
   position: relative; }
+
+.test-border {
+  position: absolute;
+  border: 1px solid #B8B8B8;
+  z-index: 50;
+  top: 215px;
+  height: 5.0rem;
+  width: 100%;
+  pointer-events: none; }
+
+.test-border-range {
+  position: absolute;
+  border: 1px solid #00FB5C;
+  z-index: 50;
+  top: 165px;
+  height: 15rem;
+  width: 100%;
+  pointer-events: none; }
 
 /*# sourceMappingURL=maps/main.css.map */
