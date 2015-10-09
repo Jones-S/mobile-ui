@@ -1,5 +1,5 @@
 app.controller('d3Controller', ['$scope', function($scope) {
-    $scope.scrollY = 0;
+    $scope.scrollY = -15;
     var currentScrollPos = 0;
     var options = 20;
 
@@ -16,7 +16,11 @@ app.controller('d3Controller', ['$scope', function($scope) {
     $scope.stopPan = function (event) {
         // save scroll Position to current
         currentScrollPos = $scope.scrollY;
-        console.log(currentScrollPos);
+        var nearestPoint = roundTo(currentScrollPos, 50);
+        console.log(nearestPoint);
+        $scope.scrollY = nearestPoint;
+        checkPos();
+
     }
 
 
@@ -41,7 +45,7 @@ app.controller('d3Controller', ['$scope', function($scope) {
         }
         var transitionRange = {
             min: selectionRange.min - $('.input__inactive').height(),
-            max: selectionRange.max + $('.input__inactive').height()
+            max: selectionRange.max + $('.input__inactive').height()/2
         }
 
         // console.log("selectionRange: " + selectionRange.max);
@@ -49,14 +53,13 @@ app.controller('d3Controller', ['$scope', function($scope) {
         // console.log("middle: " + middle);
         // console.log("middle: " + middle);
 
-        d3.selectAll(".input__number").style('-webkit-transform', function(d) {
+        d3.selectAll(".input__number").style( '-webkit-transform', function(d) {
             var returnValue;
             var position = $(this)[0].getBoundingClientRect().top
             var range = position + $(this).height();
             $(this).attr('data-pos', position);
 
-            // console.log("range: " + range + " VON: " + $(this).html());
-            if( selectionRange.min < position && position < selectionRange.max){
+            if( selectionRange.min < position && position < middle){
                 returnValue = "scale(1) translateZ(0)";
                 logValue = "CASE: 0 – MIDDLE";
             } else if ( transitionRange.min <= position && position <= selectionRange.min ) {
@@ -64,9 +67,9 @@ app.controller('d3Controller', ['$scope', function($scope) {
                 var value = mapRange( position, transitionRange.min, selectionRange.max, 0.5, 1 );
                 returnValue = ("scale(" + value + ") translateZ(0)" );
                 logValue = "CASE: 1 – TRANS LOW";
-            } else if ( selectionRange.max <= position && position <= transitionRange.max ) {
+            } else if ( middle <= position && position <= transitionRange.max ) {
                 // return a mapped value
-                var value = mapRange( position, selectionRange.max, transitionRange.max, 1, 0.5 );
+                var value = mapRange( position, middle, transitionRange.max, 1, 0.5 );
                 returnValue = ("scale(" + value + ") translateZ(0)" );
                 logValue = "CASE: 2 – TRANS HIGH";
             } else {
@@ -80,6 +83,10 @@ app.controller('d3Controller', ['$scope', function($scope) {
                 // console.log("logValue: " + logValue);
             };
 
+            // JOEL
+            // returnValue = {
+            //     "background-color": "red"
+            // }
             return returnValue;
         });
     }
@@ -87,6 +94,11 @@ app.controller('d3Controller', ['$scope', function($scope) {
     //mapping function
     function mapRange(value, low1, high1, low2, high2) {
         return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+    }
+
+    //round function
+    function roundTo(num, round){
+        return Math.round(num/round) * round;
     }
 
 
