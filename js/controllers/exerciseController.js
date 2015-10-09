@@ -33,11 +33,17 @@ app.controller('exerciseController', ['$scope', '$route', '$location', function(
 
     $scope.prev = function () {
         var prevEx = parseInt($route.current.params.id, 10) -1;
+        // class to check if anim from left or right
+        $('body').addClass('anim-from-left');
+        $('body').removeClass('anim-from-right');
         $location.path('/exercise/' + prevEx);
     }
 
     $scope.next = function () {
         var nextEx = parseInt($route.current.params.id, 10) +1;
+        // class to check if anim from left or right
+        $('body').addClass('anim-from-right');
+        $('body').removeClass('anim-from-left');
         $location.path('/exercise/' + nextEx);
     }
 

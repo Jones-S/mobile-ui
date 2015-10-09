@@ -8,6 +8,8 @@ app.controller('d3Controller', ['$scope', function($scope) {
     }
 
     $scope.panInput = function (event) {
+        // remove span panend class in case it was added before
+        $('.span--panend').removeClass('span--panend');
 
         $scope.scrollY = event.deltaY + currentScrollPos;
         checkPos();
@@ -16,8 +18,21 @@ app.controller('d3Controller', ['$scope', function($scope) {
     $scope.stopPan = function (event) {
         // save scroll Position to current
         currentScrollPos = $scope.scrollY;
-        var nearestPoint = roundTo(currentScrollPos, 200);
-        console.log("STOP", nearestPoint);
+        console.log("currentScrollPos: " + currentScrollPos);
+        // check if end at top or bottom reached
+        var elemHeight = $('.input__inactive').first().height();
+        if(currentScrollPos > 140) {
+            currentScrollPos = 3*elemHeight;
+        } else if(currentScrollPos < -(options*elemHeight - 4*elemHeight)){
+            currentScrollPos = -(options*elemHeight - 4*elemHeight);
+        }
+        console.log("options*elemHeight + 2*elemHeight: ", -options*elemHeight);
+
+        var nearestPoint = roundTo(currentScrollPos, 40);
+        var deltaToStop = nearestPoint - currentScrollPos;
+        console.log("nearestPoint", nearestPoint, "point at stop", currentScrollPos, "delta", deltaToStop);
+
+
         // increase css transition duration to animate
         $('.input__scroll-container').addClass("scroll-container--anim");
         $scope.scrollY = nearestPoint;
@@ -28,7 +43,7 @@ app.controller('d3Controller', ['$scope', function($scope) {
             }
         );
 
-        checkPos(true);
+        checkPos(true, deltaToStop);
 
     }
 
@@ -43,30 +58,33 @@ app.controller('d3Controller', ['$scope', function($scope) {
             .style('color', 'red');
     }
 
-    function checkPos(last){
+    function checkPos(last, endPosition){
         // set last to default value false
         last = typeof last !== 'undefined' ? last : false;
 
         // center of wrap to determine, which span should transform
         // center + position of wrap from top
         var middle = $('.input__wrap').height() / 2 + $('.input__wrap')[0].getBoundingClientRect().top;
+        var elemHeight = $('.input__inactive').first().height();
         var selectionRange = {
-            min: middle - $('.input__inactive').first().height()/2,
-            max: middle + $('.input__inactive').first().height()/2
+            min: middle - elemHeight/2,
+            max: middle + elemHeight/2
         }
         var transitionRange = {
-            min: selectionRange.min - $('.input__inactive').first().height(),
-            max: selectionRange.max + $('.input__inactive').first().height()/2
+            min: selectionRange.min - elemHeight,
+            max: selectionRange.max + elemHeight/2
         }
 
-        // console.log("selectionRange: " + selectionRange.max);
-        // console.log("transitionRange: " + transitionRange.max);
-        // console.log("middle: " + middle);
-        // console.log("middle: " + middle);
 
         d3.selectAll(".input__number").each( function(d) {
             var scaleValue, opacityValue;
             var position = $(this)[0].getBoundingClientRect().top
+
+            if (last) {
+                // modify position if pan stopped and set wanted end pos
+                position = position + endPosition;
+            }
+
             var range = position + $(this).height();
             $(this).attr('data-pos', position);
 
@@ -92,14 +110,15 @@ app.controller('d3Controller', ['$scope', function($scope) {
                 logValue = "CASE: 3 – ELSE";
             }
 
-            d3.select(this).style('-webkit-transform', scaleValue);
-            d3.select(this).style('opacity', opacityValue);
-
             // if is last check after panMove -> set css transitions
             if(last==true){
                 // add class which sets transitions in css
                 d3.select(this).classed('span--panend', true);
             }
+
+            d3.select(this).style('-webkit-transform', scaleValue);
+            d3.select(this).style('opacity', opacityValue);
+
         });
     }
 

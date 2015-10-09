@@ -72,15 +72,15 @@
 }
 
 .scroll-container--anim {
-    // transition duration after stop pan
-    transition-duration: 1s;
+    // transition duration after stop
+    transition-duration: $trans-dur;
 }
 
 .test-border {
     position: absolute;
     border: 1px solid $clr-2;
     z-index: 50;
-    top: 215px;
+    top: 211px;
     height: 5.0rem;
     width: 100%;
     pointer-events: none
@@ -96,30 +96,56 @@
     pointer-events: none
 }
 
+.span--panend {
+    transition: scale $trans-dur ease-out;
+}
+
 
 
 // view change animation
 .view-animate.ng-enter, .view-animate.ng-leave {
-    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+    transition:all cubic-bezier(.09,.73,.46,.98) 1.2s;
 
     display:block;
     width:100%;
-    border-left:1px solid black;
 
     position:absolute;
     top:0;
     left:0;
     right:0;
     bottom:0;
-    padding:10px;
 }
 
 .view-animate.ng-enter {
     left:100%;
 }
+
 .view-animate.ng-enter.ng-enter-active {
     left:0;
 }
-.view-animate.ng-leave.ng-leave-active {
+
+
+// slide in from right (swipe to next)
+.anim-from-right .view-animate.ng-enter.ng-enter {
+    left: 100%;
+}
+.anim-from-right .view-animate.ng-enter.ng-enter-active {
+    left:0;
+}
+.anim-from-right .view-animate.ng-leave.ng-leave-active {
     left:-100%;
+    opacity: 0.4;
+}
+
+
+// slide in from left (swipe to prev)
+.anim-from-left .view-animate.ng-enter.ng-enter{
+    left: -100%;
+}
+.anim-from-left .view-animate.ng-enter.ng-enter-active {
+    left:0;
+}
+.anim-from-left .view-animate.ng-leave.ng-leave-active {
+    left:100%;
+    opacity: 0.4;
 }
