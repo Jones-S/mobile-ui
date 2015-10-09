@@ -16,12 +16,18 @@ app.controller('d3Controller', ['$scope', function($scope) {
     $scope.stopPan = function (event) {
         // save scroll Position to current
         currentScrollPos = $scope.scrollY;
-        var nearestPoint = roundTo(currentScrollPos, 300);
+        var nearestPoint = roundTo(currentScrollPos, 200);
         console.log("STOP", nearestPoint);
         // increase css transition duration to animate
         $('.input__scroll-container').addClass("scroll-container--anim");
         $scope.scrollY = nearestPoint;
-        checkPos();
+
+        // check for transition ending
+        $('.scroll-container--anim').on('transitionend webkitTransitionEnd oTransitionEnd mozTransitionEnd msTransitionEnd', function () {
+            $('.input__scroll-container').removeClass("scroll-container--anim");
+        });
+
+        checkPos(true);
 
     }
 
@@ -36,7 +42,9 @@ app.controller('d3Controller', ['$scope', function($scope) {
             .style('color', 'red');
     }
 
-    function checkPos(){
+    function checkPos(last){
+        // set last to default value false
+        last = typeof last !== 'undefined' ? last : false;
 
         // center of wrap to determine, which span should transform
         // center + position of wrap from top
@@ -83,19 +91,14 @@ app.controller('d3Controller', ['$scope', function($scope) {
                 logValue = "CASE: 3 – ELSE";
             }
 
-            if ($(this).html() == '5'){
-                // console.log("position: " + position);
-                // console.log("returnValue: " + returnValue);
-                // console.log("logValue: " + logValue);
-            };
-
-            // JOEL
-            // returnValue = {
-            //     "background-color": "red",
-            //     color:          "white"
-            // }
             d3.select(this).style('-webkit-transform', scaleValue);
             d3.select(this).style('opacity', opacityValue);
+
+            // if is last check after panMove -> set css transitions
+            if(last==true){
+                // add class which sets transitions in css
+                d3.select(this).classed('span--panend', true);
+            }
         });
     }
 
@@ -108,6 +111,7 @@ app.controller('d3Controller', ['$scope', function($scope) {
     function roundTo(num, round){
         return Math.round(num/round) * round;
     }
+
 
 
 
