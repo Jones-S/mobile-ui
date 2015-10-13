@@ -273,42 +273,6 @@ body {
 .span--panend {
   transition: scale 0.3s ease-out; }
 
-.view-animate.ng-enter, .view-animate.ng-leave {
-  transition: all cubic-bezier(0.09, 0.73, 0.46, 0.98) 1.2s;
-  display: block;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; }
-
-.view-animate.ng-enter {
-  -webkit-transform: translate3d(100%, 0, 0); }
-
-.view-animate.ng-enter.ng-enter-active {
-  -webkit-transform: translate3d(0, 0, 0); }
-
-.anim-from-right .view-animate.ng-enter.ng-enter {
-  -webkit-transform: translate3d(100%, 0, 0); }
-
-.anim-from-right .view-animate.ng-enter.ng-enter-active {
-  -webkit-transform: translate3d(0, 0, 0); }
-
-.anim-from-right .view-animate.ng-leave.ng-leave-active {
-  -webkit-transform: translate3d(-100%, 0, 0);
-  opacity: 0.4; }
-
-.anim-from-left .view-animate.ng-enter.ng-enter {
-  -webkit-transform: translate3d(-100%, 0, 0); }
-
-.anim-from-left .view-animate.ng-enter.ng-enter-active {
-  -webkit-transform: translate3d(0, 0, 0); }
-
-.anim-from-left .view-animate.ng-leave.ng-leave-active {
-  -webkit-transform: translate3d(100%, 0, 0);
-  opacity: 0.4; }
-
 .start-screen {
   height: 100%;
   display: -webkit-box;
@@ -443,5 +407,38 @@ body {
   width: 100%;
   height: 100%;
   background: url("../img/pullup.svg") center no-repeat; }
+
+.view-animate.ng-enter, .view-animate.ng-leave {
+  transition: all cubic-bezier(0.09, 0.73, 0.46, 0.98) 0.9s;
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.view-animate.ng-enter.ng-enter-active {
+  -webkit-transform: translate3d(0, 0, 0); }
+
+.anim-from-right .view-animate.ng-enter.ng-enter {
+  -webkit-transform: translate3d(100%, 0, 0); }
+
+.anim-from-right .view-animate.ng-enter.ng-enter-active {
+  -webkit-transform: translate3d(0, 0, 0); }
+
+.anim-from-right .view-animate.ng-leave.ng-leave-active {
+  -webkit-transform: translate3d(-100%, 0, 0);
+  opacity: 0.4; }
+
+.anim-from-left .view-animate.ng-enter.ng-enter {
+  -webkit-transform: translate3d(-100%, 0, 0); }
+
+.anim-from-left .view-animate.ng-enter.ng-enter-active {
+  -webkit-transform: translate3d(0, 0, 0); }
+
+.anim-from-left .view-animate.ng-leave.ng-leave-active {
+  -webkit-transform: translate3d(100%, 0, 0);
+  opacity: 0.4; }
 
 /*# sourceMappingURL=maps/main.css.map */
