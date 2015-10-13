@@ -210,9 +210,21 @@ body {
   transform: translate(-50%, -50%); }
 
 .exercise__input {
+  -webkit-flex: 1;
   flex: 1;
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
   display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-flex-direction: column;
   flex-direction: column;
+  -webkit-justify-content: center;
   justify-content: center; }
 
 .input__divider {
@@ -270,34 +282,44 @@ body {
   bottom: 0; }
 
 .view-animate.ng-enter {
-  left: 100%; }
+  -webkit-transform: translate3d(100%, 0, 0); }
 
 .view-animate.ng-enter.ng-enter-active {
-  left: 0; }
+  -webkit-transform: translate3d(0, 0, 0); }
 
 .anim-from-right .view-animate.ng-enter.ng-enter {
-  left: 100%; }
+  -webkit-transform: translate3d(100%, 0, 0); }
 
 .anim-from-right .view-animate.ng-enter.ng-enter-active {
-  left: 0; }
+  -webkit-transform: translate3d(0, 0, 0); }
 
 .anim-from-right .view-animate.ng-leave.ng-leave-active {
-  left: -100%;
+  -webkit-transform: translate3d(-100%, 0, 0);
   opacity: 0.4; }
 
 .anim-from-left .view-animate.ng-enter.ng-enter {
-  left: -100%; }
+  -webkit-transform: translate3d(-100%, 0, 0); }
 
 .anim-from-left .view-animate.ng-enter.ng-enter-active {
-  left: 0; }
+  -webkit-transform: translate3d(0, 0, 0); }
 
 .anim-from-left .view-animate.ng-leave.ng-leave-active {
-  left: 100%;
+  -webkit-transform: translate3d(100%, 0, 0);
   opacity: 0.4; }
 
 .start-screen {
   height: 100%;
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
   display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-flex-direction: column;
   flex-direction: column;
   min-height: 100%; }
 
@@ -308,12 +330,25 @@ body {
   padding-bottom: 15%; }
   .start__logo img {
     margin: 0 auto;
-    display: block; }
+    display: block;
+    width: 53%; }
 
 .start__buttons {
+  -webkit-flex: 1;
   flex: 1;
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
   display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-flex-direction: column;
   flex-direction: column;
+  -webkit-justify-content: center;
   justify-content: center; }
 
 .start__button {

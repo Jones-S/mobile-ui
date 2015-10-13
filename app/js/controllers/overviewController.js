@@ -11,6 +11,19 @@ app.controller('overviewController', ['$scope', '$rootScope', '$route', '$locati
         $scope.overviewShow();
     })
 
+    $rootScope.$on('overview:setTransitionSpeed', function(event, data) {
+        // handle showOverview()
+        // console.log("setTransitionSpeed: " + data.speed);
+        $scope.transitionSpeed = data.speed;
+    })
+
+    // listen to events
+    $rootScope.$on('overview:hide', function(event, data) {
+        // handle showOverview()
+        $scope.transitionSpeed = 1; // in sec
+        $scope.panDeltaY = -$(window).height();
+    })
+
     $rootScope.$on('overview:panDown', function(event, data) {
         // handle showOverview()
         $scope.panDeltaY = -$(window).height() + data.y;
@@ -56,7 +69,7 @@ app.controller('overviewController', ['$scope', '$rootScope', '$route', '$locati
     }
 
     $scope.stopPanOverview = function (event) {
-                // if threshold is more than:
+        // if threshold is more than:
         if (event.deltaY < (-$(window).height() * 0.15)) {
             $scope.transitionSpeed = 1; // in sec
             $scope.panDeltaY = - $(window).height();

@@ -32,6 +32,7 @@ app.controller('exerciseController', ['$scope', '$rootScope', '$route', '$locati
         // console.log(event.deltaY);
         // set transition to 0 to have instantaneous reaction
         $scope.infoTransition = 0; // in seconds
+        $rootScope.$emit('overview:setTransitionSpeed', { speed: 0});
         if(event.deltaY < 0){
             $scope.infoDeltaY = event.deltaY;
         } else if(event.deltaY > 0){
@@ -49,10 +50,12 @@ app.controller('exerciseController', ['$scope', '$rootScope', '$route', '$locati
     }
 
     $scope.stopPanInfo = function (event) {
+        $rootScope.$emit('overview:setTransitionSpeed', { speed: 0});
         // if over threshold -> move up totally
-        if($scope.infoDeltaY < -160 ){
-            $scope.infoTransition = 1; // in seconds
-            $scope.infoDeltaY = -230;
+        if($scope.infoDeltaY < -100 ){
+            $scope.infoTransition = 0.2; // in seconds
+            // +50 for padding and margin
+            $scope.infoDeltaY = - ($('.exercise__info').height() + 50);
             // = exercise done
             // and change view
             var nextEx = parseInt($route.current.params.id, 10) +1;
@@ -71,12 +74,26 @@ app.controller('exerciseController', ['$scope', '$rootScope', '$route', '$locati
 
         } else if( event.deltaY > 0) {
             console.log("pan down", event.deltaY);
-            if ( event.deltaY > $(window).height() * 0.4 ) {
+            if ( event.deltaY > $(window).height() * 0.2 ) {
                 // init overv scroll down fct in overview controller
                 $rootScope.$emit('overview:show');
                 // and scroll down info area
                 $scope.infoTransition = 1; // in seconds
-                $scope.infoDeltaY = 460;
+                $scope.infoDeltaY = $(window).height();
+
+                // check for transition ending
+                $('.exercise__info').on('transitionend webkitTransitionEnd oTransitionEnd mozTransitionEnd msTransitionEnd', function () {
+                        console.log("overview at bottom");
+                        $scope.$apply(function(){
+                            $scope.infoDeltaY = 0;
+                        });
+                    }
+                );
+            } else {
+                // and scroll down info area
+                $scope.infoTransition = 1; // in seconds
+                $scope.infoDeltaY = 0;
+                $rootScope.$emit('overview:hide');
             }
 
         } else {
