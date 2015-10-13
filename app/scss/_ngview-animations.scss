@@ -1,0 +1,48 @@
+
+// view change animation
+.view-animate.ng-enter, .view-animate.ng-leave {
+    transition:all cubic-bezier(.09,.73,.46,.98) 0.9s;
+
+    display:block;
+    width:100%;
+
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+.view-animate.ng-enter {
+    // -webkit-transform: translate3d(100%,0,0);
+}
+
+.view-animate.ng-enter.ng-enter-active {
+    -webkit-transform: translate3d(0,0,0);
+}
+
+
+// slide in from right (swipe to next)
+.anim-from-right .view-animate.ng-enter.ng-enter {
+    -webkit-transform: translate3d(100%,0,0);
+}
+.anim-from-right .view-animate.ng-enter.ng-enter-active {
+    -webkit-transform: translate3d(0,0,0);
+}
+.anim-from-right .view-animate.ng-leave.ng-leave-active {
+    -webkit-transform: translate3d(-100%,0,0);
+    opacity: 0.4;
+}
+
+
+// slide in from left (swipe to prev)
+.anim-from-left .view-animate.ng-enter.ng-enter{
+    -webkit-transform: translate3d(-100%,0,0);
+}
+.anim-from-left .view-animate.ng-enter.ng-enter-active {
+    -webkit-transform: translate3d(0,0,0);
+}
+.anim-from-left .view-animate.ng-leave.ng-leave-active {
+    -webkit-transform: translate3d(100%,0,0);
+    opacity: 0.4;
+}
