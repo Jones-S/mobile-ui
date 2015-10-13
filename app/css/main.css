@@ -225,7 +225,9 @@ body {
   -webkit-flex-direction: column;
   flex-direction: column;
   -webkit-justify-content: center;
-  justify-content: center; }
+  justify-content: center;
+  height: 45%;
+  overflow-y: hidden; }
 
 .input__divider {
   height: 0.1rem;
@@ -373,7 +375,8 @@ body {
   height: 100%;
   z-index: 150;
   background-color: white;
-  width: 100%; }
+  width: 100%;
+  display: none; }
 
 .overview__header {
   background-color: #232323;

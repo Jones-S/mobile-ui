@@ -192,9 +192,10 @@ app.controller('exerciseController', ['$scope', '$rootScope', '$route', '$locati
         // set transition to 0 to have instantaneous reaction
         $scope.infoTransition = 0; // in seconds
         $rootScope.$emit('overview:setTransitionSpeed', { speed: 0});
-        if(event.deltaY < 0){
+        if(event.deltaY < -40){
+            console.log("event.deltaY: " + event.deltaY);
             $scope.infoDeltaY = event.deltaY;
-        } else if(event.deltaY > 0){
+        } else if(event.deltaY > 50){
             // send hint to pan down
             $rootScope.$emit('overview:panDown', { y: event.deltaY });
             // and pan down info with color
@@ -313,6 +314,9 @@ app.controller('overviewController', ['$scope', '$rootScope', '$route', '$locati
     $scope.transitionSpeed = 0; // define duration in seconds
 
     $scope.exercises = dataService.getExercises();
+
+    // undo overview display none
+    $scope.overviewDisplayState = "inline";
 
     // listen to events
     $rootScope.$on('overview:show', function(event, data) {

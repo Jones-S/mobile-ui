@@ -1,7 +1,6 @@
-<pa-overview></pa-overview>
 
-<div class="exercise" ng-controller="exerciseController" ng-swipe-left="next()" ng-swipe-right="prev()" hm-panmove="panInfoUp" hm-panend="stopPanInfo" >
-    <div class="exercise__info-wrap">
+<div class="exercise" ng-controller="exerciseController" ng-swipe-left="next()" ng-swipe-right="prev()">
+    <div class="exercise__info-wrap" hm-panmove="panInfoUp" hm-panend="stopPanInfo">
         <div class="exercise__info" ng-class="setBgColor('{{currentExercise().type}}')" style="top:{{infoDeltaY}}px; transition: top {{infoTransition}}s;">
             <div class="exercise__number" hm-tap="overviewShowEmit">{{currentExercise().id}}/{{totalExercises}}</div>
             <h1 class="exercise__title">{{currentExercise().title}}</h1>
@@ -14,13 +13,16 @@
         </div>
     </div>
 
-    <div class="exercise__input">
-        <div class="input__wrap">
-            <span class="input__number input__inactive">12</span>
-            <span class="input__number input__inactive">13</span>
-            <span class="input__number input__active">14</span>
-            <span class="input__number input__inactive">15</span>
-            <span class="input__number input__inactive">16</span>
+    <div class="exercise__input" ng-controller="d3Controller">
+        <div class="input__wrap test-wrap" hm-panmove="panInput" hm-panend="stopPan" hm-tap="d3Transform">
+            <div class="input__scroll-container" style="top: {{scrollY}}px;">
+                <span class="input__number input__inactive" ng-repeat="i in getOptions() track by $index" data-pos="">{{$index+1}} x</span>
+            </div>
+
         </div>
     </div>
 </div>
+
+<!-- overview at bottom, due to flashing when swiping -->
+<pa-overview></pa-overview>
+

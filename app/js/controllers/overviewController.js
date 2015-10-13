@@ -5,6 +5,9 @@ app.controller('overviewController', ['$scope', '$rootScope', '$route', '$locati
 
     $scope.exercises = dataService.getExercises();
 
+    // undo overview display none
+    $scope.overviewDisplayState = "inline";
+
     // listen to events
     $rootScope.$on('overview:show', function(event, data) {
         // handle showOverview()
