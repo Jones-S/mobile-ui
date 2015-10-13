@@ -12,15 +12,15 @@ var plumber = require('gulp-plumber');
 
 // Asset paths
 var paths = {
-  sass:                     ['scss/*.scss'],
-  css:                      'css',
-  js:                       'js/*.js',
-  angularControllers:       'js/controllers/*.js',
-  angularDirectives:        'js/directives/*.js',
-  angularServices:          'js/services/*.js',
-  angularDirectivesTemp:    'js/directives/*.html',
-  angularViews:             'views/*.html',
-  js_dist:                  'js/dist/'
+  sass:                     ['app/scss/*.scss'],
+  css:                      'app/css',
+  js:                       'app/js/*.js',
+  angularControllers:       'app/js/controllers/*.js',
+  angularDirectives:        'app/js/directives/*.js',
+  angularServices:          'app/js/services/*.js',
+  angularDirectivesTemp:    'app/js/directives/*.html',
+  angularViews:             'app/views/*.html',
+  js_dist:                  'app/js/dist/'
 };
 
 
@@ -34,7 +34,7 @@ function onError(err) {
 gulp.task('browsersync', function(cb) {
    return browsersync({
        server: {
-           baseDir:'./'
+           baseDir:'./app/'
     } }, cb);
    console.log("css injected");
 });
