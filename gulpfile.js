@@ -88,14 +88,17 @@ gulp.task('concatenate', function() {
 gulp.task('concatthirdparty', function() {
     return gulp.src([
                 'bower_components/jquery/dist/jquery.min.js',
-                'bower_components/angular/angular.min.js',
+                'bower_components/angular/angular.js',
                 'bower_components/angular-touch/angular-touch.js',
                 'bower_components/angular-route/angular-route.js',
                 'bower_components/angular-animate/angular-animate.min.js',
                 'bower_components/hammerjs/hammer.js',
                 'bower_components/AngularHammer/angular.hammer.js',
                 'bower_components/d3/d3.min.js',
-                'bower_components/anglar-timer/dist/angular-timer.min.js',
+                'bower_components/momentjs/min/moment.min.js',
+                'bower_components/momentjs/min/locales.min.js',
+                'bower_components/humanize-duration/humanize-duration.js',
+                'bower_components/angular-timer/dist/angular-timer.min.js'
             ])
         .pipe(plumber({
                 errorHandler: onError

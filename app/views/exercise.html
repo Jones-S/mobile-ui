@@ -13,14 +13,10 @@
         </div>
     </div>
 
-    <div class="exercise__input" ng-controller="d3Controller">
-        <div class="input__wrap test-wrap" hm-panmove="panInput" hm-panend="stopPan" hm-tap="d3Transform">
-            <div class="input__scroll-container" style="top: {{scrollY}}px;">
-                <span class="input__number input__inactive" ng-repeat="i in getOptions() track by $index" data-pos="">{{$index+1}} x</span>
-            </div>
+    <div class="exercise__input" ng-controller="d3Controller" ng-include src="'includes/input-repetition.html'">
 
-        </div>
     </div>
+
 </div>
 
 <!-- overview at bottom, due to flashing when swiping -->
