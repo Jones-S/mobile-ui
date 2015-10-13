@@ -1,15 +1,16 @@
-<!-- <pa-exercise></pa-exercise> -->
+<pa-overview></pa-overview>
 
 <div class="exercise" ng-controller="exerciseController" ng-swipe-left="next()" ng-swipe-right="prev()" hm-panmove="panInfoUp" hm-panend="stopPanInfo" >
     <div class="exercise__info-wrap">
-        <div class="exercise__info" style="top:{{infoDeltaY}}px; transition: top {{infoTransition}}s;">
-            <div class="exercise__number">{{exercises.id}}/{{totalExercises}}</div>
+        <div class="exercise__info" ng-class="setBgColor('{{currentExercise().type}}')" style="top:{{infoDeltaY}}px; transition: top {{infoTransition}}s;">
+            <div class="exercise__number" hm-tap="overviewShowEmit">{{currentExercise().id}}/{{totalExercises}}</div>
             <h1 class="exercise__title">{{currentExercise().title}}</h1>
-            <img class="exercise__img" src="img/frontlift.svg" alt="">
+            <div class="exercise__img-wrap">
+                <img class="exercise__img" src="img/{{currentExercise().imgSrc}}" alt="">
+            </div>
             <div class="exercise__tick"></div>
         </div>
         <div class="exercise__green">
-            <img src="img/green_tick.svg">
         </div>
     </div>
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="9px" height="6px" viewBox="0 0 9 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>&lt;</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="GUI-v1.1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Parcour-Copy-7" sketch:type="MSArtboardGroup" transform="translate(-146.673042, -527.000000)" fill="#FFFFFF">
+            <g id="Pull-Up-Bar" sketch:type="MSLayerGroup" transform="translate(0.000000, 523.000000)">
+                <path d="M153.821389,10.9898349 C153.802725,11.0424486 153.750636,11.0635315 153.705779,11.0373531 L148.081815,7.75521158 C148.03663,7.72884146 148,7.66112259 148,7.62085922 L148,7.08777918 C148,7.03994855 148.036282,6.97502485 148.080317,6.94328718 L153.601278,2.96414811 C153.645636,2.93217801 153.693437,2.93795835 153.715389,2.99671527 L153.923401,3.55348776 C153.942064,3.6034442 153.926418,3.66753541 153.889065,3.69617108 L149.205862,7.28639468 C149.168235,7.31524006 149.169185,7.35758688 149.223223,7.3901661 L153.977704,10.2566391 C154.024919,10.2851051 154.051352,10.3415646 154.0294,10.4034469 L153.821389,10.9898349 Z" id="&lt;" sketch:type="MSShapeGroup" transform="translate(151.000000, 7.000000) rotate(-270.000000) translate(-151.000000, -7.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

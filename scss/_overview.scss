@@ -1,0 +1,87 @@
+$exercise-height: 6.5rem;
+
+.overview {
+    position: absolute;
+    height: 100%;
+    z-index: 150;
+    background-color: white;
+    width: 100%;
+}
+
+.overview__header {
+    background-color: $clr-7;
+    height: 7.0rem;
+    h1 {
+        color: white;
+        margin: 0;
+        line-height: 7.0rem;
+        padding-left: 1.9rem;
+        display: block;
+        width: 70%;
+        float: left;
+    }
+}
+
+.header__btn-home {
+    width: 20%;
+    height: 100%;
+    background: url('../img/icn_home.svg') center no-repeat;
+    float: right;
+}
+
+.parcour__exercise {
+    height: $exercise-height;
+    border-bottom: 1px solid $clr-7;
+}
+
+.pa__exercise__id {
+    width: $exercise-height;
+    height: 100%;
+    float: left;
+    position: relative;
+}
+
+.exercise__id__circle {
+    height: 3.3rem;
+    width: 3.3rem;
+    border-radius: 50%;
+    background-color: $clr-7;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+
+    span {
+        color: white;
+        text-align: center;
+        width: 100%;
+        display: block;
+        line-height: 3.3rem;
+    }
+}
+
+.overview__exercise__title {
+    float: left;
+    line-height: $exercise-height;
+    padding-left: 2.0rem;
+}
+
+.overview__exercise__ticks {
+    float: left;
+}
+
+.overview__swipe-up {
+    background-color: $clr-7;
+    height: 1.4rem;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.swipe-up--icn {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    background: url('../img/pullup.svg') center no-repeat;
+}

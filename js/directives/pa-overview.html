@@ -1,0 +1,27 @@
+<!-- <pa-exercise></pa-exercise> -->
+
+<div class="overview" ng-controller="overviewController" hm-panup="panOverviewUp" hm-panend="stopPanOverview" hm-swipeup="swipeUp" style="top:{{panDeltaY}}px; transition: top {{transitionSpeed}}s;">
+
+    <div class="overview__header">
+        <h1>My Parcour</h1>
+        <div class="header__btn-home" hm-tap="goToURL('/', 'fromLeft')"></div>
+    </div>
+    <div class="parcour">
+        <div class="parcour__exercise clearfix" ng-repeat="exercise in exercises" hm-tap="goToURL('/exercise/{{exercise.id}}', 'fromRight')">
+            <div class="pa__exercise__id" ng-class="setBgColor('{{exercise.type}}')">
+                <div class="exercise__id__circle">
+                    <span>{{exercise.id}}</span>
+                </div>
+            </div>
+
+            <span class="overview__exercise__title">{{exercise.title}}</span>
+
+            <div class="overview__exercise__ticks">
+                <div class="ticks__tick"></div>
+            </div>
+        </div>
+    </div>
+    <div class="overview__swipe-up">
+        <div class="swipe-up--icn"></div>
+    </div>
+</div>

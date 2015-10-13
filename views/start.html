@@ -1,10 +1,14 @@
-<div class="exercise__input test-input" ng-controller="d3Controller">
-    <!-- <div class="test-border-range"></div>-->
-    <!-- <div class="test-border"></div> -->
-    <div class="input__wrap test-wrap" hm-panmove="panInput" hm-panend="stopPan" hm-tap="d3Transform">
-        <div class="input__scroll-container" style="top: {{scrollY}}px;">
-            <span class="input__number input__inactive" ng-repeat="i in getOptions() track by $index" data-pos="">{{$index+1}}</span>
-        </div>
-
+<div class="start-screen">
+    <div class="start__logo">
+        <img src="../img/logo.svg">
     </div>
+
+    <div class="start__buttons">
+        <div class="start__button button--start" hm-tap="goToURL('/exercise/1')">Start Parcour</div>
+        <div class="start__button button--results">My Results</div>
+    </div>
+
 </div>
+
+
+

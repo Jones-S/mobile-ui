@@ -11,6 +11,7 @@
 
 .exercise__info-wrap {
     position: relative;
+    height: 50%;
 }
 
 .exercise__info {
@@ -18,7 +19,14 @@
     padding-top: 1.0rem;
     padding-bottom: 3.6rem;
     position: relative;
+    height: 100%;
+    box-sizing: border-box;
 }
+
+
+.clr-blue   { background-color: $clr-4; }
+.clr-orange { background-color: $clr-1; }
+.clr-red    { background-color: $clr-5; }
 
 .exercise__green {
     background: $clr-3 url('../img/green_tick.svg') no-repeat center center;
@@ -30,9 +38,19 @@
 
 }
 
+.exercise__img-wrap {
+    height: 11.3rem;
+    position: relative;
+}
+
 .exercise__img {
+    position: absolute;
     margin: 0 auto;
     display: block;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .exercise__input {

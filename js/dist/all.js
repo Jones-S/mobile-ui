@@ -7,6 +7,9 @@ app.config(['$routeProvider', function($routeProvider) {
         })
         .when('/exercise/:id', {
             templateUrl: 'views/exercise.html'
+        })
+        .when('/wheel', {
+            templateUrl: 'views/wheel.html'
         });
 }]);
 (function ($) { // iief = Immediately-Invoked Function Expression, mainly useful to limit scope
@@ -154,40 +157,15 @@ app.controller('d3Controller', ['$scope', function($scope) {
 
 
 }]);
-app.controller('exerciseController', ['$scope', '$route', '$location', function($scope, $route, $location) {
+app.controller('exerciseController', ['$scope', '$rootScope', '$route', '$location', 'dataService', function($scope, $rootScope, $route, $location, dataService) {
+    console.log(dataService);
     $scope.infoDeltaY = 0;
-    $scope.infoDeltaY = 0;
-    $scope.infoTransition = 0; // define duration in seconds
-    $scope.exercises = [
-        {
-            id: 1,
-            title: "Push Ups",
-            type: "repetition",
-        },
-        {
-            id: 2,
-            title: "Pull Ups",
-            type: "repetition",
-        },
-        {
-            id: 3,
-            title: "Bench Press",
-            type: "weight",
-        },
-        {
-            id: 4,
-            title: "Side Hip Raises",
-            type: "repetition",
-        },
-        {
-            id: 5,
-            title: "Plank",
-            type: "time",
-        },
-    ];
+    $scope.exercises = dataService.getExercises();
+    console.log("$scope.exercises: " + $scope.exercises);
     $scope.totalExercises = $scope.exercises.length;
 
     $scope.prev = function () {
+        console.log("prev");
         var prevEx = parseInt($route.current.params.id, 10) -1;
         // class to check if anim from left or right
         $('body').addClass('anim-from-left');
@@ -216,17 +194,157 @@ app.controller('exerciseController', ['$scope', '$route', '$location', function(
         }
     }
 
+    $scope.overviewShowEmit = function() {
+        $rootScope.$emit('overview:show');
+    }
+
     $scope.stopPanInfo = function (event) {
         // if over threshold -> move up totally
-        if($scope.infoDeltaY < -180 ){
-            $scope.infoDeltaY = -250;
-            // exerciseDone();
+        if($scope.infoDeltaY < -160 ){
+            $scope.infoTransition = 1; // in seconds
+            $scope.infoDeltaY = -230;
+            // = exercise done
+            // and change view
+            var nextEx = parseInt($route.current.params.id, 10) +1;
+            $('body').addClass('anim-from-right');
+            $('body').removeClass('anim-from-left');
+
+            // check for transition ending
+            $('.exercise__info').on('transitionend webkitTransitionEnd oTransitionEnd mozTransitionEnd msTransitionEnd', function () {
+                    console.log("transition ended");
+                    // after transition has finished go to next exercise
+                    $scope.$apply(function(){
+                        $location.path('/exercise/' + nextEx);
+                    });
+                }
+            );
+
         } else {
             // change transition speed
             $scope.infoTransition = 1; // in seconds
             $scope.infoDeltaY = 0;
         }
 
+    }
+
+    $scope.setBgColor = function (type) {
+        switch (type) {
+            case "repetition":
+            return 'clr-blue'; // return class name
+            break;
+
+            case "weight":
+            return 'clr-red'; // return class name
+            break;
+
+            case "time":
+            return 'clr-orange'; // return class name
+            break;
+
+            default:
+            return 'clr-orange'; // return class name
+        }
+    }
+
+}]);
+app.controller('mainController', ['$scope', '$rootScope', '$route', '$location', function($scope, $rootScope, $route, $location) {
+
+    // $rootScope.$on('overview:show', function(event, data) {
+    //     // handle showOverview()
+    //     console.log("emit received");
+
+    // })
+
+    $scope.goToURL = function(targetURL, direction) {
+        console.log("function goToURL");
+        if(direction == 'fromLeft'){
+            $('body').addClass('anim-from-left');
+            $('body').removeClass('anim-from-right');
+        } else {
+            $('body').addClass('anim-from-right');
+            $('body').removeClass('anim-from-left');
+        }
+
+        $location.path(targetURL);
+    }
+
+
+
+}]);
+app.controller('overviewController', ['$scope', '$rootScope', '$route', '$location', 'dataService', function($scope, $rootScope, $route, $location, dataService) {
+
+    $scope.panDeltaY = -$(window).height();
+    $scope.transitionSpeed = 0; // define duration in seconds
+
+    $scope.exercises = dataService.getExercises();
+
+    // listen to events
+    $rootScope.$on('overview:show', function(event, data) {
+        // handle showOverview()
+        $scope.overviewShow();
+    })
+
+    $scope.setBgColor = function (type) {
+        switch (type) {
+            case "repetition":
+            return 'clr-blue'; // return class name
+            break;
+
+            case "weight":
+            return 'clr-red'; // return class name
+            break;
+
+            case "time":
+            return 'clr-orange'; // return class name
+            break;
+
+            default:
+            return 'clr-orange'; // return class name
+        }
+    }
+
+    $scope.goToURL = function(targetURL, direction) {
+        if(direction == 'fromLeft'){
+            $('body').addClass('anim-from-left');
+            $('body').removeClass('anim-from-right');
+        } else {
+            $('body').addClass('anim-from-right');
+            $('body').removeClass('anim-from-left');
+        }
+
+        $location.path(targetURL);
+    }
+
+    $scope.panOverviewUp = function (event) {
+        if(event.deltaY < 0){
+            $scope.transitionSpeed = 0; // in sec
+            $scope.panDeltaY = event.deltaY;
+            console.log("$scope.panDeltaY: " + $scope.panDeltaY);
+        }
+    }
+
+    $scope.stopPanOverview = function (event) {
+                // if threshold is more than:
+        if (event.deltaY < (-$(window).height() * 0.15)) {
+            $scope.transitionSpeed = 1; // in sec
+            $scope.panDeltaY = - $(window).height();
+        } else {
+            $scope.transitionSpeed = 1; // in sec
+            $scope.panDeltaY = 0; //
+        }
+
+    }
+
+    $scope.swipeUp = function () {
+        console.log("swipe up");
+        $scope.transitionSpeed = 1;
+        $scope.panDeltaY = - $(window).height();
+    }
+
+    $scope.overviewShow = function () {
+        // show overview from top to bottom
+        $scope.transitionSpeed = 1;
+        $scope.panDeltaY = 0;
     }
 
 }]);
@@ -238,8 +356,58 @@ app.directive('paExercise', function() {
     templateUrl: 'js/directives/pa-exercise.html'
   };
 });
+app.directive('paOverview', function() {
+  return {
+    scope: {
+      info: '='
+    },
+    templateUrl: 'js/directives/pa-overview.html'
+  };
+});
 app.directive('pickWheeld3', function() {
     // all d3 stuff
 
 });
+app.factory('dataService', function() {
+    var exercises = [
+        {
+            id: 1,
+            title: "Push Ups",
+            type: "repetition",
+            imgSrc: "pushups.svg"
+        },
+        {
+            id: 2,
+            title: "Pull Ups",
+            type: "repetition",
+            imgSrc: "frontlift.svg"
+        },
+        {
+            id: 3,
+            title: "Shoulder Frontlift",
+            type: "weight",
+            imgSrc: "frontlift.svg"
+        },
+        {
+            id: 4,
+            title: "Side Hip Raises",
+            type: "repetition",
+            imgSrc: "sidehipraises.svg"
+        },
+        {
+            id: 5,
+            title: "Plank",
+            type: "time",
+            imgSrc: "plank.svg"
+        }
+    ];
+
+    var service = {
+        getExercises: function() {
+            return exercises;
+        }
+    };
+    return service;
+});
+
 //# sourceMappingURL=maps/all.js.map

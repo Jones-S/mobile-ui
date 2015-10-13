@@ -7,5 +7,8 @@ app.config(['$routeProvider', function($routeProvider) {
         })
         .when('/exercise/:id', {
             templateUrl: 'views/exercise.html'
+        })
+        .when('/wheel', {
+            templateUrl: 'views/wheel.html'
         });
 }]);

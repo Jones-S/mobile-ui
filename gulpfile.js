@@ -17,9 +17,10 @@ var paths = {
   js:                       'js/*.js',
   angularControllers:       'js/controllers/*.js',
   angularDirectives:        'js/directives/*.js',
+  angularServices:          'js/services/*.js',
   angularDirectivesTemp:    'js/directives/*.html',
   angularViews:             'views/*.html',
-  js_dist:                  'js/dist/',
+  js_dist:                  'js/dist/'
 };
 
 
@@ -70,6 +71,7 @@ gulp.task('concatenate', function() {
                 paths['js'],
                 paths['angularControllers'],
                 paths['angularDirectives'],
+                paths['angularServices']
             ])
         .pipe(plumber({
                 errorHandler: onError
@@ -93,6 +95,7 @@ gulp.task('concatthirdparty', function() {
                 'bower_components/hammerjs/hammer.js',
                 'bower_components/AngularHammer/angular.hammer.js',
                 'bower_components/d3/d3.min.js',
+                'bower_components/anglar-timer/dist/angular-timer.min.js',
             ])
         .pipe(plumber({
                 errorHandler: onError
