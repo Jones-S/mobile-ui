@@ -44,6 +44,13 @@ function MyCtrl($scope) {
     });
 }```
 
+### Phonegap Cordova setup with Xcode
+http://docs.phonegap.com/en/4.0.0/guide_platforms_ios_index.md.html#iOS%20Platform%20Guide
+
+### Hide Status Bar in Cordova Phonegap
+XCode > Info > properties
+Make new Key `View controller-based status bar appearance` with Value `NO` and select `Hide Status Bar` in XCode > General
+
 
 ### Links
 
