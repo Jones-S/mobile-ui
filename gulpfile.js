@@ -20,6 +20,7 @@ var paths = {
   angularServices:          'app/js/services/*.js',
   angularDirectivesTemp:    'app/js/directives/*.html',
   angularViews:             'app/views/*.html',
+  angularIncludes:          'app/includes/*.html',
   js_dist:                  'app/js/dist/'
 };
 
@@ -127,6 +128,7 @@ gulp.task('watch', function() {
             paths['angularDirectives'],
             paths['angularDirectivesTemp'],
             paths['angularViews'],
+            paths['angularIncludes']
         ], ['concatenate']);
 
     gulp.watch("*.html").on('change', browsersync.reload);

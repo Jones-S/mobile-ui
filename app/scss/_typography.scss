@@ -124,29 +124,41 @@ span {
     text-align: right;
     padding-right: 1.0rem;
     -webkit-transform-origin: right 50%;
-    transform-origin: right 50%;
+            transform-origin: right 50%;
 }
 
 .number--second {
     text-align: left;
     padding-left: 1.0rem;
     -webkit-transform-origin: left 50%;
-    transform-origin: left 50%;
+            transform-origin: left 50%;
 }
 
 .input__inactive {
     font-size: 2.7rem * 2;
     line-height: 4.0rem;
-    -webkit-transform: scale(0.5);
-    transform: scale(0.5);
+    -webkit-transform: scale(0.5) translateZ(0);
+            transform: scale(0.5) translateZ(0);
+    opacity: 0.2; // same value as in d3-controller
     // font-size: 10vw;
     // transition: font-size 0.3s;
     // border-top: 1px solid #FFCCCC;
 }
 
 .input__active {
-    // font-size: 15vw;
-    padding: 0.8rem 0;
-    // transition: font-size 0.3s;
+    -webkit-transform: scale(1.0) translateZ(0);
+            transform: scale(1.0) translateZ(0);
+    opacity: 1.0;
+
+    &:after {
+        content: "\200Ax"; //200A ASCII Code für Hair space
+
+    }
+}
+
+.input__active--half {
+    -webkit-transform: scale(0.7) translateZ(0);
+            transform: scale(0.7) translateZ(0);
+    opacity: 0.55;
 }
 

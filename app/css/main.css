@@ -111,11 +111,21 @@ span {
 .input__inactive {
   font-size: 5.4rem;
   line-height: 4.0rem;
-  -webkit-transform: scale(0.5);
-  transform: scale(0.5); }
+  -webkit-transform: scale(0.5) translateZ(0);
+  transform: scale(0.5) translateZ(0);
+  opacity: 0.2; }
 
 .input__active {
-  padding: 0.8rem 0; }
+  -webkit-transform: scale(1) translateZ(0);
+  transform: scale(1) translateZ(0);
+  opacity: 1.0; }
+  .input__active:after {
+    content: "\200Ax"; }
+
+.input__active--half {
+  -webkit-transform: scale(0.7) translateZ(0);
+  transform: scale(0.7) translateZ(0);
+  opacity: 0.55; }
 
 table {
   border-collapse: separate;
@@ -242,7 +252,7 @@ body {
   overflow-y: hidden; }
 
 .input__wrap {
-  height: 60%;
+  height: 12rem;
   overflow-y: hidden; }
 
 .input__divider {
@@ -254,7 +264,8 @@ body {
 .input__colon {
   position: absolute;
   font-weight: 700;
-  font-size: 5.4rem; }
+  font-size: 5.4rem;
+  top: 17%; }
 
 .divider-bottom {
   margin-bottom: 0.4rem; }
@@ -430,6 +441,7 @@ body {
   background: url("../img/pullup.svg") center no-repeat; }
 
 .view-animate.ng-enter, .view-animate.ng-leave {
+  -webkit-transition: all cubic-bezier(0.09, 0.73, 0.46, 0.98) 0.9s;
   transition: all cubic-bezier(0.09, 0.73, 0.46, 0.98) 0.9s;
   display: block;
   width: 100%;
@@ -442,7 +454,7 @@ body {
 .view-animate.ng-enter.ng-enter-active {
   -webkit-transform: translate3d(0, 0, 0); }
 
-.anim-from-right .view-animate.ng-enter.ng-enter {
+.anim-from-right .view-animate.ng-enter {
   -webkit-transform: translate3d(100%, 0, 0); }
 
 .anim-from-right .view-animate.ng-enter.ng-enter-active {
@@ -452,7 +464,7 @@ body {
   -webkit-transform: translate3d(-100%, 0, 0);
   opacity: 0.4; }
 
-.anim-from-left .view-animate.ng-enter.ng-enter {
+.anim-from-left .view-animate.ng-enter {
   -webkit-transform: translate3d(-100%, 0, 0); }
 
 .anim-from-left .view-animate.ng-enter.ng-enter-active {

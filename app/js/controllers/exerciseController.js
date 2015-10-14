@@ -1,8 +1,7 @@
 app.controller('exerciseController', ['$scope', '$rootScope', '$route', '$location', 'dataService', function($scope, $rootScope, $route, $location, dataService) {
-    console.log(dataService);
+
     $scope.infoDeltaY = 0;
     $scope.exercises = dataService.getExercises();
-    console.log("$scope.exercises: " + $scope.exercises);
     $scope.totalExercises = $scope.exercises.length;
 
 
@@ -11,6 +10,8 @@ app.controller('exerciseController', ['$scope', '$rootScope', '$route', '$locati
         console.log("prev");
         var prevEx = parseInt($route.current.params.id, 10) -1;
         if(prevEx > 0){
+            // hide overview
+            $('.overview').hide();
             // class to check if anim from left or right
             $('body').addClass('anim-from-left');
             $('body').removeClass('anim-from-right');
@@ -21,6 +22,8 @@ app.controller('exerciseController', ['$scope', '$rootScope', '$route', '$locati
     $scope.next = function () {
         var nextEx = parseInt($route.current.params.id, 10) +1;
         if(nextEx <= $scope.totalExercises){
+            // hide overview
+            $('.overview').hide();
             // class to check if anim from left or right
             $('body').addClass('anim-from-right');
             $('body').removeClass('anim-from-left');

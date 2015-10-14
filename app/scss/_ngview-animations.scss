@@ -1,6 +1,7 @@
 
 // view change animation
 .view-animate.ng-enter, .view-animate.ng-leave {
+    -webkit-transition:all cubic-bezier(.09,.73,.46,.98) 0.9s;
     transition:all cubic-bezier(.09,.73,.46,.98) 0.9s;
 
     display:block;
@@ -23,7 +24,7 @@
 
 
 // slide in from right (swipe to next)
-.anim-from-right .view-animate.ng-enter.ng-enter {
+.anim-from-right .view-animate.ng-enter {
     -webkit-transform: translate3d(100%,0,0);
 }
 .anim-from-right .view-animate.ng-enter.ng-enter-active {
@@ -36,7 +37,7 @@
 
 
 // slide in from left (swipe to prev)
-.anim-from-left .view-animate.ng-enter.ng-enter{
+.anim-from-left .view-animate.ng-enter{
     -webkit-transform: translate3d(-100%,0,0);
 }
 .anim-from-left .view-animate.ng-enter.ng-enter-active {

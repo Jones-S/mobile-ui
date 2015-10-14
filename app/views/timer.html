@@ -1,11 +1,11 @@
 <div class="exercise__input" ng-controller="d3Controller">
 
     <div class="input__wrap" hm-tap="d3Transform">
-        <div class="input__scroll-container scroll-container--half" style="top: {{minutesScrollY}}px;" hm-panmove="panTime('min')" hm-panend="stopPan" >
+        <div class="input__scroll-container scroll-container--half scroll-container--min" style="top: {{minutesScrollY}}px;" hm-panmove="panMin" hm-panend="stopMin" >
             <span class="input__number number--minute input__inactive" ng-repeat="i in getMinSec() track by $index" data-pos="">{{getIndices($index)}}</span>
         </div>
         <span class="input__colon">:</span>
-        <div class="input__scroll-container scroll-container--half" style="top: {{secScrollY}}px;" hm-panmove="panTime('sec')" hm-panend="stopPan" >
+        <div class="input__scroll-container scroll-container--half scroll-container--sec" style="top: {{secScrollY}}px;" hm-panmove="panSec" hm-panend="stopSec" >
             <span class="input__number number--second input__inactive" ng-repeat="i in getMinSec() track by $index" data-pos="">{{getIndices($index)}}</span>
         </div>
 
