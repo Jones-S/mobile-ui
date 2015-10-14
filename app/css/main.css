@@ -96,6 +96,16 @@ span {
   text-align: center;
   height: 4.0rem; }
 
+.number--minute {
+  text-align: right;
+  -webkit-transform-origin: right 50%;
+  transform-origin: right 50%; }
+
+.number--second {
+  text-align: left;
+  -webkit-transform-origin: left 50%;
+  transform-origin: left 50%; }
+
 .input__inactive {
   font-size: 5.4rem;
   line-height: 4.0rem;
@@ -229,6 +239,10 @@ body {
   height: 45%;
   overflow-y: hidden; }
 
+.input__wrap {
+  height: 60%;
+  overflow-y: hidden; }
+
 .input__divider {
   height: 0.1rem;
   width: 12.7rem;
@@ -241,13 +255,13 @@ body {
 .test-input {
   height: 100%; }
 
-.test-wrap {
-  height: 60%;
-  overflow-y: hidden; }
-
 .input__scroll-container {
   position: relative;
   transition: top 0s ease-out; }
+
+.scroll-container--half {
+  width: 50%;
+  float: left; }
 
 .scroll-container--anim {
   transition-duration: 0.3s; }

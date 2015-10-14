@@ -73,7 +73,8 @@
 }
 
 .input__wrap {
-
+    height: 60%;
+    overflow-y: hidden;
 }
 
 .input__divider {
@@ -91,14 +92,14 @@
     height: 100%;
 }
 
-.test-wrap {
-    height: 60%;
-    overflow-y: hidden;
-}
-
 .input__scroll-container {
     position: relative;
     transition: top 0s ease-out;
+}
+
+.scroll-container--half {
+    width: 50%;
+    float: left;
 }
 
 .scroll-container--anim {

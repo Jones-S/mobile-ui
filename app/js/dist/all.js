@@ -24,11 +24,28 @@ app.config(['$routeProvider', function($routeProvider) {
 }(jQuery));
 app.controller('d3Controller', ['$scope', function($scope) {
     $scope.scrollY = -15;
+    $scope.minutesScrollY = -15;
+    $scope.secScrollY = -15;
     var currentScrollPos = 0;
-    var options = 20;
+    var amount;
 
-    $scope.getOptions = function(){
-        return new Array(options);
+
+    $scope.getOptions = function(_amount){
+        return new Array(_amount);
+        amount = _amount;
+    }
+
+    $scope.getMinSec = function(){
+        return new Array(60);
+    }
+
+    $scope.getIndices = function (_index) {
+        if (_index+1 <= 10){
+            var _indexstring = '0' + _index;
+            return _indexstring;
+        } else {
+            return _index;
+        }
     }
 
     $scope.panInput = function (event) {
@@ -47,10 +64,10 @@ app.controller('d3Controller', ['$scope', function($scope) {
         var elemHeight = $('.input__inactive').first().height();
         if(currentScrollPos > 140) {
             currentScrollPos = 3*elemHeight;
-        } else if(currentScrollPos < -(options*elemHeight - 4*elemHeight)){
-            currentScrollPos = -(options*elemHeight - 4*elemHeight);
+        } else if(currentScrollPos < -(amount*elemHeight - 4*elemHeight)){
+            currentScrollPos = -(amount*elemHeight - 4*elemHeight);
         }
-        console.log("options*elemHeight + 2*elemHeight: ", -options*elemHeight);
+        console.log("amount*elemHeight + 2*elemHeight: ", -amount*elemHeight);
 
         var nearestPoint = roundTo(currentScrollPos, 40);
         var deltaToStop = nearestPoint - currentScrollPos;
