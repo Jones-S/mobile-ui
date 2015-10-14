@@ -24,24 +24,37 @@ app.config(['$routeProvider', function($routeProvider) {
 }(jQuery));
 app.controller('d3Controller', ['$scope', '$route', 'dataService', function($scope, $route, dataService) {
 
-
-    // get exercise data via service
-    $scope.exercises = dataService.getExercises();
-    var currEx = parseInt($route.current.params.id, 10) - 1;
     var elemHeight = 40; // set manually because elem does not exist yet
-    $scope.predefinedRep = $scope.exercises[currEx].predefined.rep;
-    console.log("$scope.predefinedRep: " + $scope.predefinedRep);
+    var currentScrollPos;
+
+    // check if exercise
+    if ($route.current.templateUrl.substring(0, 14) == "views/exercise") {
+        // get exercise data via service
+        $scope.exercises = dataService.getExercises();
+        var currEx = parseInt($route.current.params.id, 10) - 1;
+        $scope.predefinedRep = $scope.exercises[currEx].predefined.rep;
+        console.log("$scope.predefinedRep: " + $scope.predefinedRep);
+
+        //startvalue calc from predefined
+        $scope.scrollY = - ($scope.predefinedRep - 2) * elemHeight; // height of span
+        console.log("$scope.scrollY: " + $scope.scrollY);
+        currentScrollPos = $scope.scrollY;
+    }
+
+    else if ($route.current.templateUrl.substring(0, 11) == "views/timer") {
+        $scope.predefinedMin = '01';
+        $scope.predefinedSec = '30';
+
+        $scope.minutesScrollY = - ($scope.predefinedMin -2) * elemHeight;
+        $scope.secScrollY = - ($scope.predefinedSec -2) * elemHeight;
+        currentScrollPos = $scope.minutesScrollY;
+        var currentScrollPos2 = $scope.secScrollY;
+    }
 
 
 
-    //startvalue calc from predefined
-    $scope.scrollY = - ($scope.predefinedRep - 2) * elemHeight; // height of span
-    console.log("$scope.scrollY: " + $scope.scrollY);
 
-    $scope.minutesScrollY = -15;
-    $scope.secScrollY = -15;
-    var currentScrollPos = $scope.scrollY;
-    var currentScrollPos2 = 0;
+
     var amount;
 
 
@@ -73,6 +86,27 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         }
     }
 
+    $scope.predefinedTime = function (_index, unit) {
+        if (unit == 'min'){
+            if (_index == parseInt($scope.predefinedMin, 10)){
+                // return active element
+                return "input__active";
+            } else if (_index == parseInt($scope.predefinedMin, 10) +1 || _index == parseInt($scope.predefinedMin, 10) -1) {
+                // if one more or one less return half active
+                return "input__active--half";
+            }
+        } else if (unit == 'sec') {
+            if (_index == parseInt($scope.predefinedSec, 10)){
+                // return active element
+                return "input__active";
+            } else if (_index == parseInt($scope.predefinedSec, 10) +1 || _index == parseInt($scope.predefinedSec, 10) -1) {
+                // if one more or one less return half active
+                return "input__active--half";
+            }
+        }
+
+    }
+
     $scope.panInput = function (event) {
         // remove span panend class in case it was added before
         $('.span--panend').removeClass('span--panend');
@@ -81,19 +115,12 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         checkPos();
     }
 
-    // $scope.panTime = function (event, time) {
-    //     // remove span panend class in case it was added before
-    //     $('.span--panend').removeClass('span--panend');
-
-    //     $scope.minutesScrollY = event.deltaY + currentScrollPos;
-    //     checkPos();
-    // }
-
     $scope.panMin = function (event) {
         // remove span panend class in case it was added before
         $('.span--panend').removeClass('span--panend');
 
         $scope.minutesScrollY = event.deltaY + currentScrollPos;
+        console.log("$scope.minutesScrollY: " + $scope.minutesScrollY);
         checkPos();
     }
 
