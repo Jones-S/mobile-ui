@@ -78,7 +78,7 @@
     position: relative;
 }
 
-.input__wrap--timer, .input__timer {
+.input__wrap--timer {
     -webkit-transform: scale(0.8) translateZ(0);
             transform: scale(0.8) translateZ(0);
 }
@@ -92,9 +92,10 @@
 
 .input__colon {
     position: absolute;
+    top: 0;
     font-weight: 700;
     font-size: 2.7rem * 2;
-    line-height: 11.0rem;
+    line-height: 12.0rem;
     display: block;
     width: 100%;
     text-align: center;
@@ -142,10 +143,14 @@
 }
 
 .input__timer {
-    // display: none;
+    display: none; // .show() called after timer starts in d3 controller
+    text-align: center;
+    height: 4.0rem * 3;
+    position: relative;
     span {
         font-weight: 700;
         font-size: 2.7rem * 2;
+        line-height: 4.0rem * 3; // as high as input wrap
 
     }
 }

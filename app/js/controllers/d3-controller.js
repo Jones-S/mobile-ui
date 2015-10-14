@@ -323,7 +323,7 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
             max: selectionRange.max + elemHeight/2
         }
 
-
+        // choose all scrolled spans and check position
         d3.selectAll(_target).each( function(d) {
             var scaleValue, opacityValue;
             var position = $(this)[0].getBoundingClientRect().top
@@ -407,6 +407,12 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         console.log("_selectedSec: " + _selectedSec);
         var _selectedTime = _selectedMin * 60 + _selectedSec;
         $scope.$broadcast('timer-set-countdown-seconds', _selectedTime);
+
+        // remove scroll selector
+        $('.input__wrap').hide();
+        // show timer
+        $('.input__timer').show();
+
 
         $scope.$broadcast('timer-start');
         $scope.timerRunning = true;
