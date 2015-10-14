@@ -1,6 +1,6 @@
 <!-- ng-controller = d3Controller  -->
 
-<div class="input__wrap clearfix" hm-tap="d3Transform">
+<div class="input__wrap input__wrap--timer clearfix" hm-tap="d3Transform">
     <div class="input__scroll-container scroll-container--half scroll-container--min" style="top: {{minutesScrollY}}px;" hm-panmove="panMin" hm-panend="stopMin" >
         <span class="input__number number--minute input__inactive" ng-class="predefinedTime({{$index}}, 'min')" ng-repeat="i in getMinSec() track by $index" data-pos="">{{getIndices($index)}}</span>
     </div>

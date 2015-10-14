@@ -256,6 +256,10 @@ body {
   overflow-y: hidden;
   position: relative; }
 
+.input__wrap--timer {
+  -webkit-transform: scale(0.8) translateZ(0);
+  transform: scale(0.8) translateZ(0); }
+
 .input__divider {
   height: 0.1rem;
   width: 12.7rem;
@@ -269,7 +273,8 @@ body {
   line-height: 11.0rem;
   display: block;
   width: 100%;
-  text-align: center; }
+  text-align: center;
+  pointer-events: none; }
 
 .input__x {
   position: absolute;
