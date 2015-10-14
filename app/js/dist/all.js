@@ -27,6 +27,7 @@ app.controller('d3Controller', ['$scope', function($scope) {
     $scope.minutesScrollY = -15;
     $scope.secScrollY = -15;
     var currentScrollPos = 0;
+    var currentScrollPos2 = 0;
     var amount;
 
 
@@ -53,6 +54,15 @@ app.controller('d3Controller', ['$scope', function($scope) {
         $('.span--panend').removeClass('span--panend');
 
         $scope.scrollY = event.deltaY + currentScrollPos;
+        checkPos();
+    }
+
+    $scope.panTime = function (event, time) {
+        console.log(time + "time");
+        // remove span panend class in case it was added before
+        $('.span--panend').removeClass('span--panend');
+
+        $scope.minutesScrollY = event.deltaY + currentScrollPos;
         checkPos();
     }
 
