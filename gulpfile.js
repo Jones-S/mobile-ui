@@ -128,7 +128,8 @@ gulp.task('watch', function() {
             paths['angularDirectives'],
             paths['angularDirectivesTemp'],
             paths['angularViews'],
-            paths['angularIncludes']
+            paths['angularIncludes'],
+            paths['angularServices']
         ], ['concatenate']);
 
     gulp.watch("*.html").on('change', browsersync.reload);

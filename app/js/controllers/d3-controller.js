@@ -3,7 +3,7 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
 
     // get exercise data via service
     $scope.exercises = dataService.getExercises();
-    var currEx = parseInt($route.current.params.id, 10);
+    var currEx = parseInt($route.current.params.id, 10) - 1;
     var elemHeight = 40; // set manually because elem does not exist yet
     $scope.predefinedRep = $scope.exercises[currEx].predefined.rep;
     console.log("$scope.predefinedRep: " + $scope.predefinedRep);
@@ -22,8 +22,8 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
 
 
     $scope.getOptions = function(_amount){
-        return new Array(_amount);
         amount = _amount;
+        return new Array(_amount);
     }
 
     $scope.getMinSec = function(){
@@ -86,31 +86,58 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         currentScrollPos = $scope.scrollY;
         console.log("currentScrollPos: " + currentScrollPos);
         // check if end at top or bottom reached
-        elemHeight = $('.input__inactive').first().height();
-        if(currentScrollPos > 140) {
-            currentScrollPos = 3*elemHeight;
-        } else if(currentScrollPos < -(amount*elemHeight - 4*elemHeight)){
-            currentScrollPos = -(amount*elemHeight - 4*elemHeight);
+        elemHeight = $('.input__inactive').height();
+        console.log("elemHeight: " + elemHeight);
+
+        var _spans = $('.input__number');
+
+
+        // clean up first
+        removeClasses(_spans);
+        removeInlineStyles(_spans);
+
+
+        // if less than first element
+        if(currentScrollPos > (elemHeight)) {
+            console.log("FIRST");
+            currentScrollPos = elemHeight; // center 1x
+            _spans.first().addClass("input__active");
+            _spans.eq(1).addClass('input__active--half');
+
         }
-        console.log("amount*elemHeight + 2*elemHeight: ", -amount*elemHeight);
+        // if more than last element
+        else if(currentScrollPos < -(amount*elemHeight - 2*elemHeight)){
+            console.log("unten drüber gescrollt");
+            currentScrollPos = -(amount*elemHeight - 2*elemHeight);
+            // remove classes and set last element to active
+            var lastSpan = _spans.last();
+            _spans.eq(amount-2).addClass('input__active--half');
+            lastSpan.addClass('input__active');
+        }
+
 
         var nearestPoint = roundTo(currentScrollPos, 40);
         var deltaToStop = nearestPoint - currentScrollPos;
-        console.log("nearestPoint", nearestPoint, "point at stop", currentScrollPos, "delta", deltaToStop);
 
 
         // increase css transition duration to animate
         $('.input__scroll-container').addClass("scroll-container--anim");
         $scope.scrollY = nearestPoint;
+        var _activeElem = -(nearestPoint/elemHeight -2); // e.g. -160/40 = 4 -2 => -6 (6th elem)
+        //set active class to active Element
+        _spans.eq(_activeElem-1).addClass('input__active');
+        // and set half active classes for accompanying elements
+        _spans.eq(_activeElem).addClass('input__active--half');
+        _spans.eq(_activeElem-2).addClass('input__active--half');
+
+        // set end styles for centered elements:
+
 
         // check for transition ending
         $('.scroll-container--anim').on('transitionend webkitTransitionEnd oTransitionEnd mozTransitionEnd msTransitionEnd', function () {
                 $('.input__scroll-container').removeClass("scroll-container--anim");
             }
         );
-
-        checkPos(true, deltaToStop);
-
     }
 
     $scope.stopMin = function (event) {
@@ -178,12 +205,11 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
     // ------------------- 3d.js -------------------
 
     $scope.d3Transform = function(){
-        console.log("transform this shit");
-
         d3.selectAll(".input__number").transition()
             .duration(750)
             .style('color', 'red');
     }
+
 
     function checkPos(last, endPosition){
         // set last to default value false
@@ -219,19 +245,32 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
                 scaleValue = "scale(1) translateZ(0)";
                 opacityValue = 1;
                 logValue = "CASE: 0 – MIDDLE";
-            } else if ( transitionRange.min <= position && position <= selectionRange.min ) {
+                // set active class
+                d3.select(this).classed('input__active', true);
+            }
+
+            else if ( transitionRange.min <= position && position <= selectionRange.min ) {
+                // remove classes
+                d3.select(this).classed('input__active', false);
                 // return a mapped value
                 var mappedScale = mapRange( position, transitionRange.min, selectionRange.min, 0.5, 1 );
                 opacityValue = mapRange( position, transitionRange.min, selectionRange.min, 0.2, 1 );
                 scaleValue = ("scale(" + mappedScale + ") translateZ(0)" );
                 logValue = "CASE: 1 – TRANS LOW";
-            } else if ( middle <= position && position <= transitionRange.max ) {
+            }
+
+            else if ( middle <= position && position <= transitionRange.max ) {
+
+                // remove classes
+                d3.select(this).classed('input__active', false);
                 // return a mapped value
                 var mappedScale = mapRange( position, middle, transitionRange.max, 1, 0.5 );
                 opacityValue = mapRange( position, middle, transitionRange.max, 1, 0.2 );
                 scaleValue = ("scale(" + mappedScale + ") translateZ(0)" );
                 logValue = "CASE: 2 – TRANS HIGH";
-            } else {
+            }
+
+            else {
                 scaleValue = "scale(0.5) translateZ(0)";
                 opacityValue = 0.2;
                 logValue = "CASE: 3 – ELSE";
@@ -259,6 +298,18 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         return Math.round(num/round) * round;
     }
 
+    //remove classes
+    function removeClasses(_elem) {
+        _elem.removeClass('input__active input__active--half');
+    }
+
+    //remove inline style to make css effective again
+    function removeInlineStyles(_elem) {
+        _elem.css({
+            opacity : "",
+            transform: ""
+        });
+    }
 
     // $scope.timerRunning = true;
     // $scope.startTimer = function (){

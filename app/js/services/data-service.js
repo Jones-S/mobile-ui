@@ -11,21 +11,21 @@ app.factory('dataService', function() {
             id: 2,
             title: "Pull Ups",
             type: "repetition",
-            predefined: { rep: '11' },
+            predefined: { rep: '22' },
             imgSrc: "frontlift.svg"
         },
         {
             id: 3,
             title: "Shoulder Frontlift",
             type: "weight",
-            predefined: { rep: '12' },
+            predefined: { rep: '3' },
             imgSrc: "frontlift.svg"
         },
         {
             id: 4,
             title: "Side Hip Raises",
             type: "repetition",
-            predefined: { rep: '13' },
+            predefined: { rep: '4' },
             imgSrc: "sidehipraises.svg"
         },
         {
