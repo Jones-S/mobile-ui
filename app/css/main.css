@@ -115,30 +115,17 @@ span {
   transform: scale(0.5) translateZ(0);
   opacity: 0.2; }
 
-.input__active:after, .input__active--half:after {
-  content: "\200Ax";
-  -webkit-transition: opacity 0.5s;
-  transition: opacity 0.5s; }
-
 .input__active {
   -webkit-transform: scale(1) translateZ(0);
   transform: scale(1) translateZ(0);
   opacity: 1.0;
   transition: opacity 0.3s, transform 0.3s; }
-  .input__active:after {
-    opacity: 1;
-    -webkit-transition: opacity 0.5s;
-    transition: opacity 0.5s; }
 
 .input__active--half {
   -webkit-transform: scale(0.7) translateZ(0);
   transform: scale(0.7) translateZ(0);
   opacity: 0.55;
   transition: opacity 0.3s, transform 0.3s; }
-  .input__active--half:after {
-    opacity: 0;
-    -webkit-transition: opacity 0.5s;
-    transition: opacity 0.5s; }
 
 table {
   border-collapse: separate;
@@ -266,7 +253,8 @@ body {
 
 .input__wrap {
   height: 12rem;
-  overflow-y: hidden; }
+  overflow-y: hidden;
+  position: relative; }
 
 .input__divider {
   height: 0.1rem;
@@ -279,6 +267,17 @@ body {
   font-weight: 700;
   font-size: 5.4rem;
   top: 17%; }
+
+.input__x {
+  position: absolute;
+  font-weight: 700;
+  font-size: 4.32rem;
+  line-height: 11.8rem;
+  top: 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding-left: 5.0rem; }
 
 .divider-bottom {
   margin-bottom: 0.4rem; }

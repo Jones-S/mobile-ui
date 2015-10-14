@@ -145,27 +145,12 @@ span {
     // border-top: 1px solid #FFCCCC;
 }
 
-.input__active, .input__active--half {
-    &:after {
-        content: "\200Ax"; //200A ASCII Code für Hair space
-        -webkit-transition: opacity 0.5s;
-                transition: opacity 0.5s;
-
-    }
-}
-
 
 .input__active {
     -webkit-transform: scale(1.0) translateZ(0);
             transform: scale(1.0) translateZ(0);
     opacity: 1.0;
     transition: opacity $trans-dur, transform $trans-dur;
-
-    &:after {
-        opacity: 1;
-        -webkit-transition: opacity 0.5s;
-                transition: opacity 0.5s;
-    }
 }
 
 .input__active--half {
@@ -173,12 +158,6 @@ span {
             transform: scale(0.7) translateZ(0);
     opacity: 0.55;
     transition: opacity $trans-dur, transform $trans-dur;
-    &:after {
-        opacity: 0;
-        -webkit-transition: opacity 0.5s;
-                transition: opacity 0.5s;
-    }
-
 }
 
 
