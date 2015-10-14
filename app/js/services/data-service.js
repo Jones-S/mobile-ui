@@ -23,17 +23,18 @@ app.factory('dataService', function() {
         },
         {
             id: 4,
+            title: "Plank",
+            type: "time",
+            predefined: { min: '0', sec: '2' },
+            imgSrc: "plank.svg"
+
+        },
+        {
+            id: 5,
             title: "Side Hip Raises",
             type: "repetition",
             predefined: { rep: '4' },
             imgSrc: "sidehipraises.svg"
-        },
-        {
-            id: 5,
-            title: "Plank",
-            type: "time",
-            predefined: { min: '0', sec: '5' },
-            imgSrc: "plank.svg"
         }
     ];
 

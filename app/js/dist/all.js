@@ -22,7 +22,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
     });
 }(jQuery));
-app.controller('d3Controller', ['$scope', '$route', 'dataService', function($scope, $route, dataService) {
+app.controller('d3Controller', ['$scope', '$rootScope', '$route', 'dataService', function($scope, $rootScope, $route, dataService) {
 
     var elemHeight = 40; // set manually because elem does not exist yet
     var currentScrollPos;
@@ -104,7 +104,6 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
     $scope.predefinedTime = function (_index, unit) {
         if (unit == 'min'){
             if (_index == parseInt($scope.predefinedMin, 10)){
-                console.log("_index: " + _index);
                 // return active element
                 return "input__active";
             } else if (_index == parseInt($scope.predefinedMin, 10) +1 || _index == parseInt($scope.predefinedMin, 10) -1) {
@@ -441,12 +440,6 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         $scope.$broadcast('timer-start');
         $scope.timerRunning = true;
     };
-    // $scope.stopTimer = function (){
-    //     $scope.$broadcast('timer-stop');
-    //     $scope.timerRunning = false;
-    // };
-
-    // add time to timer
 
 
     $scope.$on('timer-set-countdown-seconds', function (e, seconds) {
@@ -456,6 +449,9 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
     // liste to end of timer
     $scope.$on('timer-stopped', function (event, args) {
         console.log('timer-stopped args = ', args);
+        // mark exercise as done:
+        // emit signal to exerciseController to pan info up
+        $rootScope.$emit('info:panInfoUp', { speed: 1});
     });
 
 
@@ -467,6 +463,28 @@ app.controller('exerciseController', ['$scope', '$rootScope', '$route', '$locati
     $scope.infoDeltaY = 0;
     $scope.exercises = dataService.getExercises();
     $scope.totalExercises = $scope.exercises.length;
+
+
+    // liste to emit from d3Controller
+    $rootScope.$on('info:panInfoUp', function(event, data) {
+        console.log("info pan up received");
+        // set transition speed from emit message
+        $scope.infoTransition = data.speed;
+        console.log("data.speed: " + data.speed);
+        // set y pos of info div to top + 50
+        $scope.$apply(function(){
+            $scope.infoDeltaY = - ($('.exercise__info').height() + 50);
+        });
+
+        // check for transition ending
+        $('.exercise__info').on('transitionend webkitTransitionEnd oTransitionEnd mozTransitionEnd msTransitionEnd', function () {
+                // after transition has finished go to next exercise
+                $scope.$apply(function(){
+                    $scope.next();
+                });
+            }
+        );
+    })
 
 
 
@@ -764,17 +782,18 @@ app.factory('dataService', function() {
         },
         {
             id: 4,
+            title: "Plank",
+            type: "time",
+            predefined: { min: '0', sec: '2' },
+            imgSrc: "plank.svg"
+
+        },
+        {
+            id: 5,
             title: "Side Hip Raises",
             type: "repetition",
             predefined: { rep: '4' },
             imgSrc: "sidehipraises.svg"
-        },
-        {
-            id: 5,
-            title: "Plank",
-            type: "time",
-            predefined: { min: '0', sec: '5' },
-            imgSrc: "plank.svg"
         }
     ];
 

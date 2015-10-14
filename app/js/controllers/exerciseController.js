@@ -5,6 +5,28 @@ app.controller('exerciseController', ['$scope', '$rootScope', '$route', '$locati
     $scope.totalExercises = $scope.exercises.length;
 
 
+    // liste to emit from d3Controller
+    $rootScope.$on('info:panInfoUp', function(event, data) {
+        console.log("info pan up received");
+        // set transition speed from emit message
+        $scope.infoTransition = data.speed;
+        console.log("data.speed: " + data.speed);
+        // set y pos of info div to top + 50
+        $scope.$apply(function(){
+            $scope.infoDeltaY = - ($('.exercise__info').height() + 50);
+        });
+
+        // check for transition ending
+        $('.exercise__info').on('transitionend webkitTransitionEnd oTransitionEnd mozTransitionEnd msTransitionEnd', function () {
+                // after transition has finished go to next exercise
+                $scope.$apply(function(){
+                    $scope.next();
+                });
+            }
+        );
+    })
+
+
 
     $scope.prev = function () {
         console.log("prev");
