@@ -89,7 +89,10 @@
     position: absolute;
     font-weight: 700;
     font-size: 2.7rem * 2;
-    top: 17%;
+    line-height: 11.0rem;
+    display: block;
+    width: 100%;
+    text-align: center;
 }
 
 .input__x {
@@ -115,6 +118,21 @@
 .input__scroll-container {
     position: relative;
     transition: top 0s ease-out;
+}
+
+.input__btn-start {
+    background-color: $clr-7;
+    border-radius: 50%;
+    width: 6.6rem;
+    height: 6.6rem;
+    margin: 1.0rem auto;
+    span {
+        color: white;
+        line-height: 6.6rem;
+        text-align: center;
+        display: block;
+        width: 100%;
+    }
 }
 
 .scroll-container--half {

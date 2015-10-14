@@ -13,7 +13,8 @@
         </div>
     </div>
 
-    <div class="exercise__input" ng-controller="d3Controller" ng-include src="'includes/input-repetition.html'">
+    <!-- returnExerciseType is already controller by the d3Controller -->
+    <div class="exercise__input" ng-controller="d3Controller" ng-include src="returnExerciseType(currentExercise().type)">
 
     </div>
 

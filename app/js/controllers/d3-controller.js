@@ -2,12 +2,13 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
 
     var elemHeight = 40; // set manually because elem does not exist yet
     var currentScrollPos;
+    $scope.exercises = dataService.getExercises();
+    var currEx = parseInt($route.current.params.id, 10) - 1;
+    console.log("currEx: " + currEx);
 
     // check if exercise
-    if ($route.current.templateUrl.substring(0, 14) == "views/exercise") {
+    if ($scope.exercises[currEx].type == 'repetition' || $scope.exercises[currEx].type == 'weight') {
         // get exercise data via service
-        $scope.exercises = dataService.getExercises();
-        var currEx = parseInt($route.current.params.id, 10) - 1;
         $scope.predefinedRep = $scope.exercises[currEx].predefined.rep;
         console.log("$scope.predefinedRep: " + $scope.predefinedRep);
 
@@ -17,12 +18,12 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         currentScrollPos = $scope.scrollY;
     }
 
-    else if ($route.current.templateUrl.substring(0, 11) == "views/timer") {
-        $scope.predefinedMin = '01';
-        $scope.predefinedSec = '30';
+    else if ($scope.exercises[currEx].type == 'time') {
+        $scope.predefinedMin = $scope.exercises[currEx].predefined.min;
+        $scope.predefinedSec = $scope.exercises[currEx].predefined.sec;
 
-        $scope.minutesScrollY = - ($scope.predefinedMin -2) * elemHeight;
-        $scope.secScrollY = - ($scope.predefinedSec -2) * elemHeight;
+        $scope.minutesScrollY = - ($scope.predefinedMin -1) * elemHeight;
+        $scope.secScrollY = - ($scope.predefinedSec -1) * elemHeight;
         currentScrollPos = $scope.minutesScrollY;
         var currentScrollPos2 = $scope.secScrollY;
     }
@@ -33,6 +34,19 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
 
     var amount;
 
+    $scope.returnExerciseType = function (_type) {
+        if (_type == 'time'){
+            return 'includes/input-timer.html';
+        } else if (_type == 'repetition'){
+            return 'includes/input-repetition.html';
+        } else if (_type == 'weight'){
+            return 'includes/input-repetition.html';
+        }
+    }
+
+    $scope.currentExercise = function () {
+        return $scope.exercises[$route.current.params.id -1];
+    }
 
     $scope.getOptions = function(_amount){
         amount = _amount;
@@ -40,7 +54,8 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
     }
 
     $scope.getMinSec = function(){
-        return new Array(60);
+        amount = 60;
+        return new Array(amount);
     }
 
     $scope.getIndices = function (_index) {
@@ -65,6 +80,7 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
     $scope.predefinedTime = function (_index, unit) {
         if (unit == 'min'){
             if (_index == parseInt($scope.predefinedMin, 10)){
+                console.log("_index: " + _index);
                 // return active element
                 return "input__active";
             } else if (_index == parseInt($scope.predefinedMin, 10) +1 || _index == parseInt($scope.predefinedMin, 10) -1) {
@@ -157,7 +173,6 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         _spans.eq(_activeElem).addClass('input__active--half');
         _spans.eq(_activeElem-2).addClass('input__active--half');
 
-        // set end styles for centered elements:
 
 
         // check for transition ending
@@ -174,10 +189,26 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         // check if end at top or bottom reached
         elemHeight = $('.input__inactive').height();
 
-        if(currentScrollPos > 140) {
-            currentScrollPos = 3*elemHeight;
-        } else if(currentScrollPos < -(amount*elemHeight - 4*elemHeight)){
-            currentScrollPos = -(amount*elemHeight - 4*elemHeight);
+        var _spans = $('.number--minute');
+
+        // clean up first
+        removeClasses(_spans);
+        removeInlineStyles(_spans);
+
+        // if less than first element
+        if(currentScrollPos > (elemHeight)) {
+            currentScrollPos = elemHeight; // center 1x
+            _spans.first().addClass("input__active");
+            _spans.eq(1).addClass('input__active--half');
+
+        }
+        // if more than last element
+        else if(currentScrollPos < -(amount*elemHeight - 2*elemHeight)){
+            currentScrollPos = -(amount*elemHeight - 2*elemHeight);
+            // remove classes and set last element to active
+            var lastSpan = _spans.last();
+            _spans.eq(amount-2).addClass('input__active--half');
+            lastSpan.addClass('input__active');
         }
 
         var nearestPoint = roundTo(currentScrollPos, 40);
@@ -185,8 +216,14 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
 
 
         // increase css transition duration to animate
-        $('.scroll-container--min').addClass("scroll-container--anim");
+        $('.croll-container--min').addClass("scroll-container--anim");
         $scope.minutesScrollY = nearestPoint;
+        var _activeElem = -(nearestPoint/elemHeight -2); // e.g. -160/40 = 4 -2 => -6 (6th elem)
+        //set active class to active Element
+        _spans.eq(_activeElem-1).addClass('input__active');
+        // and set half active classes for accompanying elements
+        _spans.eq(_activeElem).addClass('input__active--half');
+        _spans.eq(_activeElem-2).addClass('input__active--half');
 
         // check for transition ending
         $('.scroll-container--anim').on('transitionend webkitTransitionEnd oTransitionEnd mozTransitionEnd msTransitionEnd', function () {
@@ -194,20 +231,37 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
             }
         );
 
-        checkPos(true, deltaToStop);
-
     }
 
     $scope.stopSec = function (event) {
         // save scroll Position to current
         currentScrollPos2 = $scope.secScrollY;
+        console.log("currentScrollPos2: " + currentScrollPos2);
 
         // check if end at top or bottom reached
         elemHeight = $('.input__inactive').first().height();
-        if(currentScrollPos2 > 140) {
-            currentScrollPos2 = 3*elemHeight;
-        } else if(currentScrollPos2 < -(amount*elemHeight - 4*elemHeight)){
-            currentScrollPos2 = -(amount*elemHeight - 4*elemHeight);
+
+        var _spans = $('.number--second');
+
+        // clean up first
+        removeClasses(_spans);
+        removeInlineStyles(_spans);
+
+        // if less than first element
+        if(currentScrollPos2 > (elemHeight)) {
+            currentScrollPos2 = elemHeight; // center 1x
+            _spans.first().addClass("input__active");
+            _spans.eq(1).addClass('input__active--half');
+
+        }
+        // if more than last element
+        else if(currentScrollPos2 < -(amount*elemHeight - 2*elemHeight)){
+            currentScrollPos2 = -(amount*elemHeight - 2*elemHeight);
+            console.log("drunter");
+            // remove classes and set last element to active
+            var lastSpan = _spans.last();
+            _spans.eq(amount-2).addClass('input__active--half');
+            lastSpan.addClass('input__active');
         }
 
         var nearestPoint = roundTo(currentScrollPos2, 40);
@@ -217,14 +271,18 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         // increase css transition duration to animate
         $('.scroll-container--sec').addClass("scroll-container--anim");
         $scope.secScrollY = nearestPoint;
+        var _activeElem = -(nearestPoint/elemHeight -2); // e.g. -160/40 = 4 -2 => -6 (6th elem)
+        //set active class to active Element
+        _spans.eq(_activeElem-1).addClass('input__active');
+        // and set half active classes for accompanying elements
+        _spans.eq(_activeElem).addClass('input__active--half');
+        _spans.eq(_activeElem-2).addClass('input__active--half');
 
         // check for transition ending
         $('.scroll-container--anim').on('transitionend webkitTransitionEnd oTransitionEnd mozTransitionEnd msTransitionEnd', function () {
                 $('.scroll-container--sec').removeClass("scroll-container--anim");
             }
         );
-
-        checkPos(true, deltaToStop);
 
     }
 

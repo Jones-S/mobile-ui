@@ -112,6 +112,7 @@ app.controller('exerciseController', ['$scope', '$rootScope', '$route', '$locati
 
     }
 
+
     $scope.setBgColor = function (type) {
         switch (type) {
             case "repetition":

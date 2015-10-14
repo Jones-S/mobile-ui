@@ -32,7 +32,7 @@ app.factory('dataService', function() {
             id: 5,
             title: "Plank",
             type: "time",
-            predefined: { rep: '14' },
+            predefined: { min: '1', sec: '30' },
             imgSrc: "plank.svg"
         }
     ];

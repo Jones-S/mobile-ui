@@ -266,7 +266,10 @@ body {
   position: absolute;
   font-weight: 700;
   font-size: 5.4rem;
-  top: 17%; }
+  line-height: 11.0rem;
+  display: block;
+  width: 100%;
+  text-align: center; }
 
 .input__x {
   position: absolute;
@@ -288,6 +291,19 @@ body {
 .input__scroll-container {
   position: relative;
   transition: top 0s ease-out; }
+
+.input__btn-start {
+  background-color: #232323;
+  border-radius: 50%;
+  width: 6.6rem;
+  height: 6.6rem;
+  margin: 1.0rem auto; }
+  .input__btn-start span {
+    color: white;
+    line-height: 6.6rem;
+    text-align: center;
+    display: block;
+    width: 100%; }
 
 .scroll-container--half {
   width: 50%;
