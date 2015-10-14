@@ -104,7 +104,7 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         $('.span--panend').removeClass('span--panend');
 
         $scope.scrollY = event.deltaY + currentScrollPos;
-        checkPos();
+        checkPos('input__number');
     }
 
     $scope.panMin = function (event) {
@@ -113,7 +113,7 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
 
         $scope.minutesScrollY = event.deltaY + currentScrollPos;
         console.log("$scope.minutesScrollY: " + $scope.minutesScrollY);
-        checkPos();
+        checkPos('number--minute');
     }
 
     $scope.panSec = function (event) {
@@ -121,7 +121,7 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         $('.span--panend').removeClass('span--panend');
 
         $scope.secScrollY = event.deltaY + currentScrollPos2;
-        checkPos();
+        checkPos('number--second');
     }
 
     $scope.stopPan = function (event) {
@@ -287,6 +287,16 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
     }
 
 
+
+
+
+
+
+
+
+
+
+
     // ------------------- 3d.js -------------------
 
     $scope.d3Transform = function(){
@@ -296,9 +306,9 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
     }
 
 
-    function checkPos(last, endPosition){
-        // set last to default value false
-        last = typeof last !== 'undefined' ? last : false;
+    function checkPos(_target){
+        _target = "." + _target;
+
 
         // center of wrap to determine, which span should transform
         // center + position of wrap from top
@@ -314,14 +324,11 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
         }
 
 
-        d3.selectAll(".input__number").each( function(d) {
+        d3.selectAll(_target).each( function(d) {
             var scaleValue, opacityValue;
             var position = $(this)[0].getBoundingClientRect().top
 
-            if (last) {
-                // modify position if pan stopped and set wanted end pos
-                position = position + endPosition;
-            }
+
 
             var range = position + $(this).height();
             $(this).attr('data-pos', position);
@@ -361,11 +368,6 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
                 logValue = "CASE: 3 – ELSE";
             }
 
-            // if is last check after panMove -> set css transitions
-            if(last==true){
-                // add class which sets transitions in css
-                d3.select(this).classed('span--panend', true);
-            }
 
             d3.select(this).style('-webkit-transform', scaleValue);
             d3.select(this).style('opacity', opacityValue);
@@ -397,16 +399,29 @@ app.controller('d3Controller', ['$scope', '$route', 'dataService', function($sco
     }
 
     // $scope.timerRunning = true;
-    // $scope.startTimer = function (){
-    //     $scope.$broadcast('timer-start');
-    //     $scope.timerRunning = true;
-    // };
+    $scope.startTimer = function (){
+        // set timer to time from scroll selector
+        var _selectedMin = parseInt($('.number--minute.input__active').html(), 10);
+        var _selectedSec = parseInt($('.number--second.input__active').html(), 10);
+        console.log("_selectedMin: " + _selectedMin);
+        console.log("_selectedSec: " + _selectedSec);
+        var _selectedTime = _selectedMin * 60 + _selectedSec;
+        $scope.$broadcast('timer-set-countdown-seconds', _selectedTime);
+
+        $scope.$broadcast('timer-start');
+        $scope.timerRunning = true;
+    };
     // $scope.stopTimer = function (){
     //     $scope.$broadcast('timer-stop');
     //     $scope.timerRunning = false;
     // };
 
-    // angular timer
+    // add time to timer
+
+
+    $scope.$on('timer-set-countdown-seconds', function (e, seconds) {
+        console.log(seconds);
+    });
 
     // liste to end of timer
     $scope.$on('timer-stopped', function (event, args) {
